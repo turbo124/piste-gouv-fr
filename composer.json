@@ -1,5 +1,5 @@
 {
-  "name": "fintake/php-chorus-piste",
+  "name": "zmog/php-chorus-piste",
   "description": "Package PHP pour la connexion et l'envoi de documents sur Chorus PRO par le biais de la plateforme de l'AIFE nommé PISTE",
   "type": "library",
   "authors": [
@@ -7,13 +7,18 @@
       "name": "Sylvain BORDIER",
       "email": "sylvain.bordier@nbb-lease.fr",
       "role": "Developer"
+    },
+    {
+      "name" : "Mathieu VEDIE",
+      "email" : "mathieu.vedie@gmail.com",
+      "role" : "Developer"      
     }
   ],
   "minimum-stability": "stable",
   "license": "MIT",
   "require": {
-    "php": ">= 7.4",
-    "guzzlehttp/guzzle": "^7.2",
+    "php": ">= 7.0",
+    "guzzlehttp/guzzle": "^6.5",
     "ext-json": "*",
     "ext-zip": "*"
   },
