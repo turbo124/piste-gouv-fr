@@ -27,7 +27,9 @@
   },
   "autoload": {
     "psr-4": {
-      "PhpChorusPiste\\": "src/"
+      "PhpChorusPiste\\": "src/",
+      "PhpChorusPiste\\Parameter\\": "src/parameter",
+      "PhpChorusPiste\\ParameterCollection\\": "src/parameter/collection"
     }
   }
 }

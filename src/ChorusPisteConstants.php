@@ -1,12 +1,11 @@
 <?php
-declare(strict_types=1);
 
 namespace PhpChorusPiste;
 
 
 class ChorusPisteConstants
 {
-    public const FLUX_STATUS = [
+    const FLUX_STATUS = [
         'IN_EN_ATTENTE_RETRAITEMENT_CPP' => 'En attente de retraitement',
         'IN_EN_ATTENTE_TRAITEMENT_CPP' => 'En attente de traitement',
         'IN_EN_COURS_TRAITEMENT_CPP' => 'En cours de traitement',
@@ -20,4 +19,5 @@ class ChorusPisteConstants
         'IN_RECU' => 'Reçu',
         'IN_TRAITE_SE_CPP' => 'Traité'
     ];
+
 }
