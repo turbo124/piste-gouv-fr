@@ -7,32 +7,32 @@ define('TECH_ACCOUNT_LOGIN', "TECH_000000000415049@cpp2017.fr");
 define('TECH_ACCOUNT_PASSWORD', "H9-{7&:k|cOE|+;N");
 define('CHORUSPRO_IDENTIFIANT_STRUCTURE', "00000000415049"); // Compte > Modification de la structure > Identifiant*
 define('CHORUSPRO_IBAN_LABEL', "IBAN SANDBOX"); // Compte > Modification de la structure > Identifiant*
+define('CHORUSPRO_CODESERVICE_FOURNISSEUR', "SERVICE_FOURNISSEUR26370408"); // Compte > Modification de la structure > Identifiant*
 // Base 64 login:password = VEVDSF8wMDAwMDAwMDA0MTUwNDlAY3BwMjAxNy5mcjpIOS17NyY6a3xjT0V8KztO
 
 //$flux = $Piste->deposerFlux(__DIR__.DIRECTORY_SEPARATOR.'incoice1.pdf');
 
 function deposerFactureEtSoumettre() {
-//    $idFournisseur = 26149301;
-//    $idServiceFournisseur = 10519953;
-
-    $idFournisseur = 415049;
-    $idServiceFournisseur = 0;
-
-    $codeDestinataire = 'SERVICE_MOE_226370408';
-    $codeServiceExecutant = 'SERVICE_MOE_226370408';
 
     $codeDestinataire = '11000201100044'; // SIRET
     $codeServiceExecutant = 'SFACETAT'; // Code du Service
 
+    $codeDestinataire = '00000000415073'; // SIRET
+    $codeServiceExecutant = 'SERVICE_DESTINATAIRE26370408'; // Code du Service
 
 
-    $codeCoordonneesBancairesFournisseur = 116050;
+
     $deviseFacture                       = 'EUR';
-    $numeroFacture                       = 'FR-001';
+    $numeroFacture                       = 'FR-001'.mt_rand(0,10000);
 
-    $Piste   = new \PhpChorusPiste\ChorusPiste(CLIENT_ID, CLIENT_SECRET, TECH_ACCOUNT_LOGIN, TECH_ACCOUNT_PASSWORD, true);
+    $Piste   = new \PhpChorusPiste\Piste(CLIENT_ID, CLIENT_SECRET, TECH_ACCOUNT_LOGIN, TECH_ACCOUNT_PASSWORD, true);
 
-    $recupererStructureResult = $Piste->recupererStructuresPourUtilisateur();
+    $Transverses = new \PhpChorusPiste\Transverses($Piste);
+    $Structures = new \PhpChorusPiste\Structures($Piste);
+    $Factures = new \PhpChorusPiste\Factures($Piste);
+
+    $recupererStructureResult = $Transverses->recupererStructuresPourUtilisateur();
+//    var_dump($recupererStructureResult);
     if (empty($recupererStructureResult->listeStructures)) {
         throw new Exception('Pas de structures accessible');
     }
@@ -48,8 +48,7 @@ function deposerFactureEtSoumettre() {
     }
 
 
-    $recupererCoordonneesBancairesValidesResult = $Piste->recupererCoordonneesBancairesValides($idStructure);
-//    var_dump($recupererCoordonneesBancairesValidesResult);
+    $recupererCoordonneesBancairesValidesResult = $Transverses->recupererCoordonneesBancairesValides($idStructure);
     if (empty($recupererCoordonneesBancairesValidesResult->listeCoordonneeBancaire)) {
         throw new Exception('Pas de coordonnée bancaire pour attacher la facture.');
     }
@@ -67,14 +66,39 @@ function deposerFactureEtSoumettre() {
 
     $codeCoordonneesBancairesFournisseur = $idCoordonneeBancaire;
 
-    var_dump($Piste->recupererStructuresActivesPourFournisseur());
-    die();
+    $recupererStructuresActivesPourFournisseurResult  = $Transverses->recupererStructuresActivesPourFournisseur();
+    if (empty($recupererStructuresActivesPourFournisseurResult->listeStructures)) {
+        throw new Exception('Pas de de structure selectionnable en tant que fournisseur.');
+    }
+    $idFournisseur = null;
+    foreach($recupererStructuresActivesPourFournisseurResult->listeStructures as $Structure) {
+        if ($Structure->idStructureCPP === $idStructure) {
+            $idFournisseur = $idStructure;
+        }
+    }
 
-//    die();
+    if (null === $idFournisseur) {
+        throw new Exception('La structure ne peut pas être fournisseur.');
+    }
 
+    $rechercherServicesStructureResult = $Structures->rechercherServicesStructure($idStructure);
+    if(empty($rechercherServicesStructureResult->listeServices)) {
+        throw new Exception('Pas de de service dans la structure.');
+    }
+    $idService = null;
+    foreach($rechercherServicesStructureResult->listeServices as $Service) {
+        if ($Service->codeService === CHORUSPRO_CODESERVICE_FOURNISSEUR) {
+            $idService = $Service->idService;
+        }
+    }
 
-    $deposerPDFFactureResult = $Piste->deposerPDFFacture(__DIR__.DIRECTORY_SEPARATOR.'incoice1.pdf');
-    var_dump($deposerPDFFactureResult);
+    if (null === $idService) {
+        throw new Exception('Le service '.CHORUSPRO_CODESERVICE_FOURNISSEUR.' n\'a pas été trouvé');
+    }
+    $idServiceFournisseur = $idService;
+
+    $deposerPDFFactureResult = $Factures->deposerPDFFacture(__DIR__.DIRECTORY_SEPARATOR.'incoice1.pdf');
+//    var_dump($deposerPDFFactureResult);
 //    $codeRetour        = $deposerPDFFactureResult->codeRetour;
 //    $libelle           = $deposerPDFFactureResult->libelle;
 //    $numeroFacture     = $deposerPDFFactureResult->numeroFacture;
@@ -82,18 +106,20 @@ function deposerFactureEtSoumettre() {
 //    $codeDeviseFacture = $deposerPDFFactureResult->codeDeviseFacture;
 //    $typeFacture       = $deposerPDFFactureResult->typeFacture;
 //    $typeTva           = $deposerPDFFactureResult->typeTva;
-    $numeroBonCommande = $deposerPDFFactureResult->numeroBonCommande;
+//    $numeroBonCommande = $deposerPDFFactureResult->numeroBonCommande;
+    $numeroBonCommande = null;
 //    $montantHtTotal    = $deposerPDFFactureResult->montantHtTotal;
 //    $montantTVA        = $deposerPDFFactureResult->montantTVA;
     $pieceJointeId     = $deposerPDFFactureResult->pieceJointeId;
-    $soumettreFactureResult = $Piste->soumettreFacture(0,
+    try {
+    $soumettreFactureResult = $Factures->soumettreFacture(0,
                              $numeroFacture,
                              \PhpChorusPiste\IModeDepot::DEPOT_PDF_API,
                              $dateFacture,
                              new \PhpChorusPiste\Parameter\SoumettreFactureDestinataire($codeDestinataire, $codeServiceExecutant),
                              new \PhpChorusPiste\Parameter\SoumettreFactureFournisseur($idFournisseur, $idServiceFournisseur, $codeCoordonneesBancairesFournisseur),
                              new \PhpChorusPiste\Parameter\SoumettreFactureCadreDeFacturation(\PhpChorusPiste\ICodeCadreFacturation::A1_FACTURE_FOURNISSEUR),
-                             new \PhpChorusPiste\Parameter\SoumettreFactureReferences($deviseFacture, \PhpChorusPiste\ITypeFacture::FACTURE, \PhpChorusPiste\ITypeTva::TVA_SUR_ENCAISSEMENT, null, '', $numeroBonCommande, '$numeroFacture', \PhpChorusPiste\IModePaiement::VIREMENT),
+                             new \PhpChorusPiste\Parameter\SoumettreFactureReferences($deviseFacture, \PhpChorusPiste\ITypeFacture::FACTURE, \PhpChorusPiste\ITypeTva::TVA_SUR_ENCAISSEMENT, null, '', $numeroBonCommande, $numeroFacture, \PhpChorusPiste\IModePaiement::VIREMENT),
                              new \PhpChorusPiste\ParameterCollection\LignePosteSoumettreInputCollection(new \PhpChorusPiste\Parameter\LignePosteSoumettreInput(1, '1', '10Heures', 1, 'Lot', 50, null, null, 20)),
                              new \PhpChorusPiste\ParameterCollection\LigneTvaSoumettreInputCollection(new \PhpChorusPiste\Parameter\LigneTvaSoumettreInput(null, 41.67, 8.33, 20)),
                              new \PhpChorusPiste\Parameter\SoumettreFactureMontantTotal(41.67, 8.33, 50, null, null, 50),
@@ -102,14 +128,17 @@ function deposerFactureEtSoumettre() {
                              'Post Automatique de Facture'
 
 
-);
+
+    );
+    var_dump($soumettreFactureResult);
+        }
+        catch (\PhpChorusPiste\PisteException $CPE) {
+            throw $CPE;
+            $Transverses->detacherPieceJointe($pieceJointeId);
+        }
 
 }
 
 
 deposerFactureEtSoumettre();
 
-//var_dump($Piste->consulterHistoriqueFacture(0,0));
-//var_dump($Piste->consulterHistoriqueFacture(0,0));
-
-//$Piste->getStatusDepot();

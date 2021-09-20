@@ -3,7 +3,7 @@
 namespace PhpChorusPiste\Parameter;
 
 
-use PhpChorusPiste\ChorusPisteException;
+use PhpChorusPiste\PisteException;
 
 class LignePosteSoumettreInput implements \JsonSerializable {
 

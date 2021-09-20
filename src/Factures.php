@@ -2,9 +2,6 @@
 
 namespace PhpChorusPiste;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-use PhpChorusPiste\Parameter\LignePosteSoumettreInput;
 use PhpChorusPiste\Parameter\SoumettreFactureCadreDeFacturation;
 use PhpChorusPiste\Parameter\SoumettreFactureDestinataire;
 use PhpChorusPiste\Parameter\SoumettreFactureFournisseur;
@@ -15,110 +12,20 @@ use PhpChorusPiste\ParameterCollection\LigneTvaSoumettreInputCollection;
 use PhpChorusPiste\ParameterCollection\PieceJointeComplentaireSoumettreInputCollection;
 use PhpChorusPiste\ParameterCollection\SoumettreFacturePieceJointePrincipaleCollection;
 
-class ChorusPiste {
+/**
+ * Class d'execution des appels des api de piste depuis le reseau internet
+ */
+class Factures {
 
-    // URL depuis le Réseau Interministériel de l'État (RIE):
-    //    const AUTH_SANDBOX_URL = 'https://sandbox-oauth.aife.economie.gouv.fr/api/oauth/token';
-    //    const AUTH_PRODUCTION_URL = 'https://oauth.aife.economie.gouv.fr/api/oauth/token';
-    //    const API_SANDBOX_URL = 'https://sandbox-api.aife.economie.gouv.fr';
-    //    const API_PRODUCTION_URL = 'https://api.aife.economie.gouv.fr';
-    // Url depuis internet
-    const AUTH_SANDBOX_URL    = 'https://sandbox-oauth.piste.gouv.fr/api/oauth/token';
-    const AUTH_PRODUCTION_URL = 'https://oauth.piste.gouv.fr/api/oauth/token';
-    const API_SANDBOX_URL     = 'https://sandbox-api.piste.gouv.fr';
-    const API_PRODUCTION_URL  = 'https://api.piste.gouv.fr';
-
-    /** @var Client $client */
-    private $client;
+    const BASE_PATH = '/cpro/factures';
 
     /**
-     * ChorusPiste constructor.
-     *
-     * @param string $client_id
-     * @param string $client_secret
-     * @param string $tech_username
-     * @param string $tech_password
-     * @param bool   $sandbox
-     *
-     * @throws GuzzleException
+     * @var \PhpChorusPiste\Piste|\GuzzleHttp\Client
      */
-    public function __construct(
-        string $client_id,
-        string $client_secret,
-        string $tech_username,
-        string $tech_password,
-        bool $sandbox = true
-    ) {
-        $authClient = new Client();
-        $auth       = $authClient->post(
-            $sandbox ? self::AUTH_SANDBOX_URL : self::AUTH_PRODUCTION_URL,
-            [
-                'form_params' => [
-                    'grant_type'    => 'client_credentials',
-                    'client_id'     => $client_id,
-                    'client_secret' => $client_secret,
-                    'scope'         => 'openid',
-                ],
-            ]
-        );
-        $response   = json_decode($auth->getBody()
-                                      ->getContents(),
-                                  false,
-                                  512);
-        if (null === $response) {
-            throw new \Exception('json_decode exception');
-        }
+    private $Piste;
 
-        $token = $response->access_token;
-        //        var_dump($token);
-        $this->client = new Client(
-            [
-                'base_uri'        => $sandbox ? self::API_SANDBOX_URL : self::API_PRODUCTION_URL,
-                'allow_redirects' => true,
-                'headers'         => [
-                    'Authorization' => 'Bearer '.$token,
-                    'cpro-account'  => base64_encode($tech_username.':'.$tech_password),
-                    'Content-Type'  => 'application/json;charset=utf-8',
-                    'Accept'        => 'application/json;charset=utf-8',
-                ],
-            ]
-        );
-        $cpro = base64_encode($tech_username.':'.$tech_password);
-
-        $cmd = <<<CMD
-curl -is -H "accept: application/json;charset=utf-8" -H "cpro-account: $cpro" -H "Content-Type: application/json;charset=utf-8" -H "Authorization: Bearer $token" -X POST "https://sandbox-api.piste.gouv.fr/cpro/transverses/v1/recuperer/structures/actives/fournisseur"
-CMD;
-        echo "Commande : ".PHP_EOL;
-        echo $cmd.PHP_EOL;
-        echo "----------------------------------------------------------------------------------------------------------------".PHP_EOL;
-        echo "Reponse : ".PHP_EOL;
-        echo `$cmd`;
-        die();
-    }
-
-    /**
-     * @param string $invoiceId
-     * @param string $syntax
-     *
-     * @return mixed
-     */
-    public function getStatusDepot(string $invoiceId, string $syntax = IFlux::IN_DP_E2_UBL_INVOICE_MIN)  {
-        $request  = $this->client->post(
-            '/cpro/transverses/v1/consulterCRDetaille',
-            [
-                'json' => [
-                    'numeroFluxDepot' => $invoiceId,
-                    'syntaxeFlux'     => $syntax,
-                ],
-            ]
-        );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        return $data;
+    public function __construct(Piste $Piste) {
+        $this->Piste = $Piste;
     }
 
     /**
@@ -142,8 +49,8 @@ CMD;
     ) {
         $nomFichier = $nomFichier ?? basename($fichierFlux_path);
 
-        $request  = $this->client->post(
-            '/cpro/factures/v1/deposer/flux',
+        $request  = $this->Piste->Client()->post(
+            static::BASE_PATH.'/v1/deposer/flux',
             [
                 'json' => [
                     'idUtilisateurCourant' => $idUtilisateurCourant,
@@ -164,11 +71,10 @@ CMD;
     }
 
     /**
-     * @param int    $idUtilisateurCourant
-     * @param string $fichierFlux_path
+     * @param string $fichierFacture_path
+     * @param string $formatDepot
      * @param string $nomFichier (Si null, sera remplacer par le nom du fichier correspondant au $fichierFacture_path)
-     * @param string $syntaxeFlux
-     * @param bool   $avecSignature
+     * @param int    $idUtilisateurCourant
      *
      * @return mixed
      * @throws \Exception
@@ -178,13 +84,11 @@ CMD;
         string $formatDepot = IFormatDepot::PDF_NON_SIGNE,
         string $nomFichier = null,
         int $idUtilisateurCourant = 0
-
-
     ) {
         $nomFichier = $nomFichier ?? basename($fichierFacture_path);
 
-        $request  = $this->client->post(
-            '/cpro/factures/v1/deposer/pdf',
+        $request  = $this->Piste->Client()->post(
+            static::BASE_PATH.'/v1/deposer/pdf',
             [
                 'json' => [
                     'idUtilisateurCourant' => $idUtilisateurCourant,
@@ -202,6 +106,9 @@ CMD;
         }
         return $data;
     }
+
+
+
 
     /**
      * @param string                                                                              $numeroFactureSaisi
@@ -241,8 +148,8 @@ CMD;
 
 
     ) {
-        $request  = $this->client->post(
-            '/cpro/factures/v1/soumettre',
+        $request  = $this->Piste->Client()->post(
+            static::BASE_PATH.'/v1/soumettre',
             [
                 'json' => [
                     'idUtilisateurCourant'      => $idUtilisateurCourant,
@@ -269,7 +176,7 @@ CMD;
             throw new \Exception('json_decode exception');
         }
         if ($data->codeRetour !== 0) {
-            throw new ChorusPisteException($data->libelle);
+            throw new PisteException($data->libelle);
         }
         return $data;
     }
@@ -289,8 +196,8 @@ CMD;
         int $idEspace = 0,
         int $nbResultatsMaximum = 0
     ) {
-        $request  = $this->client->post(
-            '/cpro/factures/v1/consulter/historique',
+        $request  = $this->Piste->Client()->post(
+            static::BASE_PATH.'/v1/consulter/historique',
             [
                 'json' => [
                     'idUtilisateurCourant' => $idUtilisateurCourant,
@@ -307,69 +214,9 @@ CMD;
             throw new \Exception('json_decode exception');
         }
         if ($data->codeRetour !== 0) {
-            throw new ChorusPisteException($data->libelle);
+            throw new PisteException($data->libelle);
         }
         return $data;
     }
 
-
-    public function recupererCoordonneesBancairesValides(int $idStructure) {
-        $request  = $this->client->post(
-            '/cpro/transverses/v1/recuperer/coordbanc/valides',
-            [
-                'json' => [
-                    'idStructure' => $idStructure,
-                ],
-            ]
-        );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new ChorusPisteException($data->libelle);
-        }
-        return $data;
-
-    }
-    public function recupererStructuresPourUtilisateur(int $espaceFo = null) {
-        $request  = $this->client->post(
-            '/cpro/transverses/v1/recuperer/structuresPourUtilisateur',
-            [
-                'json' => [
-                    'espaceFo' => $espaceFo,
-                ],
-            ]
-        );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new ChorusPisteException($data->libelle);
-        }
-        return $data;
-
-    }
-    public function recupererStructuresActivesPourFournisseur() {
-        $request  = $this->client->post(
-            '/cpro/transverses/v1/recuperer/structures/actives/fournisseur'
-        );
-        $response = $request->getBody()
-            ->getContents();
-
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new ChorusPisteException($data->libelle);
-        }
-        return $data;
-
-    }
 }
