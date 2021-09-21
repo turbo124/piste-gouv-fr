@@ -29,6 +29,7 @@
     "psr-4": {
       "PhpChorusPiste\\": "src/",
       "PhpChorusPiste\\Parameter\\": "src/parameter",
+      "PhpChorusPiste\\Retour\\": "src/retour",
       "PhpChorusPiste\\ParameterCollection\\": "src/parameter/collection"
     }
   }

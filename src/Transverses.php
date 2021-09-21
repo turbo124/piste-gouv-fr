@@ -2,6 +2,12 @@
 
 namespace PhpChorusPiste;
 
+use PhpChorusPiste\Retour\WsRetour;
+use PhpChorusPiste\Retour\WsRetourConsulterCRDetaille;
+use PhpChorusPiste\Retour\WsRetourRecupererCoordonneesBancairesValides;
+use PhpChorusPiste\Retour\WsRetourRecupererStructure;
+use PhpChorusPiste\Retour\WsRetourStructuresPourUtilisateur;
+
 /**
  * Class d'execution capable d'effectuer les appels à l'Api Chorus-Pro Transverse
  */
@@ -22,96 +28,82 @@ class Transverses {
      * @param string $invoiceId
      * @param string $syntax
      *
-     * @return mixed
+     * @return WsRetourConsulterCRDetaille
      */
-    public function getStatusDepot(string $invoiceId, string $syntax = IFlux::IN_DP_E2_UBL_INVOICE_MIN) {
-        $request  = $this->Piste->Client()->post(
+    public function consulterCRDetaille(string $invoiceId, string $syntax = ISyntaxeFlux::IN_DP_E2_UBL_INVOICE_MIN): WsRetour {
+        return $this->Piste->post(
             static::BASE_PATH.'/v1/consulterCRDetaille',
             [
                 'json' => [
                     'numeroFluxDepot' => $invoiceId,
                     'syntaxeFlux'     => $syntax,
                 ],
-            ]
+            ],
+            WsRetourConsulterCRDetaille::class
         );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        return $data;
     }
 
 
-
-
-    public function recupererCoordonneesBancairesValides(int $idStructure) {
-        $request  = $this->Piste->Client()->post(
+    /**
+     * @param int $idStructure
+     *
+     * @return \PhpChorusPiste\Retour\WsRetourRecupererCoordonneesBancairesValides
+     * @throws \PhpChorusPiste\PisteException
+     */
+    public function recupererCoordonneesBancairesValides(int $idStructure): WsRetour {
+        return $this->Piste->post(
             static::BASE_PATH.'/v1/recuperer/coordbanc/valides',
             [
                 'json' => [
                     'idStructure' => $idStructure,
                 ],
-            ]
+            ],
+            WsRetourRecupererCoordonneesBancairesValides::class
         );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new PisteException($data->libelle);
-        }
-        return $data;
     }
 
-    public function recupererStructuresPourUtilisateur(int $espaceFo = null) {
-        $request  = $this->Piste->Client()->post(
+    /**
+     * @param int|null $espaceFo
+     *
+     * @return \PhpChorusPiste\Retour\WsRetourStructuresPourUtilisateur
+     * @throws \PhpChorusPiste\PisteException
+     * @throws \Exception
+     */
+    public function recupererStructuresPourUtilisateur(int $espaceFo = null): WsRetour {
+        return $this->Piste->post(
             static::BASE_PATH.'/v1/recuperer/structuresPourUtilisateur',
             [
                 'json' => [
                     'espaceFo' => $espaceFo,
                 ],
-            ]
+            ],
+            WsRetourStructuresPourUtilisateur::class
         );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new PisteException($data->libelle);
-        }
-        return $data;
     }
 
-    public function recupererStructuresActivesPourFournisseur() {
-        $request  = $this->Piste->Client()->post(
+    /**
+     * @return \PhpChorusPiste\Retour\WsRetourRecupererStructure
+     * @throws \PhpChorusPiste\PisteException
+     */
+    public function recupererStructuresActivesPourFournisseur(): WsRetour {
+        return $this->Piste->post(
             static::BASE_PATH.'/v1/recuperer/structures/actives/fournisseur',
             [
                 'body' => '{}',
-            ]
+            ],
+            WsRetourRecupererStructure::class
         );
-        $response = $request->getBody()
-            ->getContents();
-
-        $data = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new PisteException($data->libelle);
-        }
-        return $data;
     }
 
 
-
-    public function detacherPieceJointe(int $idPieceJointeObjet) {
-        $request  = $this->Piste->Client()->post(
+    /**
+     * @param int $idPieceJointeObjet
+     *
+     * @return bool
+     * @throws \PhpChorusPiste\PisteException
+     */
+    public function detacherPieceJointe(int $idPieceJointeObjet): bool {
+        $this->Piste->post(
             static::BASE_PATH.'/v1/detacherPieceJointe',
             [
                 'json' => [
@@ -119,16 +111,6 @@ class Transverses {
                 ],
             ]
         );
-        $response = $request->getBody()
-            ->getContents();
-
-        $data = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new PisteException($data->libelle);
-        }
-        return $data;
+        return true;
     }
 }

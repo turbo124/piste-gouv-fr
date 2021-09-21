@@ -1,4 +1,7 @@
 <?php
+
+use PhpChorusPiste\Retour\WsRetourDeposerPdfFacture;
+
 include(dirname(__DIR__).DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php');
 
 define('CLIENT_ID', "b2ebd80e-0dc7-46c5-bf23-d531e5411d6c");
@@ -32,16 +35,18 @@ function deposerFactureEtSoumettre() {
     $Factures = new \PhpChorusPiste\Factures($Piste);
 
     $recupererStructureResult = $Transverses->recupererStructuresPourUtilisateur();
-//    var_dump($recupererStructureResult);
+
     if (empty($recupererStructureResult->listeStructures)) {
         throw new Exception('Pas de structures accessible');
     }
     $idStructure = null;
+
     foreach($recupererStructureResult->listeStructures as $Structure) {
         if ($Structure->identifiantStructure === CHORUSPRO_IDENTIFIANT_STRUCTURE) {
             $idStructure = $Structure->idStructure;
         }
     }
+
 
     if (null === $idStructure) {
         throw new Exception('La structure '.CHORUSPRO_IDENTIFIANT_STRUCTURE.' n\'a pas été trouvé');
@@ -52,6 +57,9 @@ function deposerFactureEtSoumettre() {
     if (empty($recupererCoordonneesBancairesValidesResult->listeCoordonneeBancaire)) {
         throw new Exception('Pas de coordonnée bancaire pour attacher la facture.');
     }
+
+    var_dump($recupererCoordonneesBancairesValidesResult);
+    die();
 
     $idCoordonneeBancaire = null;
     foreach($recupererCoordonneesBancairesValidesResult->listeCoordonneeBancaire as $CoordonneeBancaire) {
@@ -98,11 +106,12 @@ function deposerFactureEtSoumettre() {
     $idServiceFournisseur = $idService;
 
     $deposerPDFFactureResult = $Factures->deposerPDFFacture(__DIR__.DIRECTORY_SEPARATOR.'incoice1.pdf');
+//    var_dump($deposerPDFFactureResult->numeroFacture);
 //    var_dump($deposerPDFFactureResult);
 //    $codeRetour        = $deposerPDFFactureResult->codeRetour;
 //    $libelle           = $deposerPDFFactureResult->libelle;
 //    $numeroFacture     = $deposerPDFFactureResult->numeroFacture;
-    $dateFacture       = $deposerPDFFactureResult->dateFacture;
+    $dateFacture       = $deposerPDFFactureResult->dateFacture->format('Y-m-d');
 //    $codeDeviseFacture = $deposerPDFFactureResult->codeDeviseFacture;
 //    $typeFacture       = $deposerPDFFactureResult->typeFacture;
 //    $typeTva           = $deposerPDFFactureResult->typeTva;
@@ -112,6 +121,7 @@ function deposerFactureEtSoumettre() {
 //    $montantTVA        = $deposerPDFFactureResult->montantTVA;
     $pieceJointeId     = $deposerPDFFactureResult->pieceJointeId;
     try {
+        /** @var WsRetourDeposerPdfFacture $soumettreFactureResult */
     $soumettreFactureResult = $Factures->soumettreFacture(0,
                              $numeroFacture,
                              \PhpChorusPiste\IModeDepot::DEPOT_PDF_API,

@@ -15,6 +15,9 @@ use PhpChorusPiste\ParameterCollection\LignePosteSoumettreInputCollection;
 use PhpChorusPiste\ParameterCollection\LigneTvaSoumettreInputCollection;
 use PhpChorusPiste\ParameterCollection\PieceJointeComplentaireSoumettreInputCollection;
 use PhpChorusPiste\ParameterCollection\SoumettreFacturePieceJointePrincipaleCollection;
+use PhpChorusPiste\Retour\WsRetourRecupererCoordonneesBancairesValides;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 /**
  * Class d'execution des appels des api de piste depuis le reseau internet
@@ -36,7 +39,6 @@ class Piste {
     public function Client(): Client {
         return $this->client;
     }
-
 
 
     /**
@@ -93,8 +95,29 @@ class Piste {
         );
     }
 
+    /**
+     * @param       $uri
+     * @param array $options
+     *
+     * @return \PhpChorusPiste\Retour\WsRetour|array
+     */
+    public function post($uri, array $options = [], string $classe_objet_en_retour = null) {
+        if (null !== $classe_objet_en_retour && !class_exists($classe_objet_en_retour)) {
+            throw new PisteException('La classe fourni en parametre de la methode '.__FUNCTION__.' de la classe '.__CLASS__.' n\'existe pas !');
+        }
 
+        $request  = $this->Client()
+            ->post($uri, $options);
+        $response = $request->getBody()
+            ->getContents();
+        $data     = json_decode($response, true);
+        if (null === $data) {
+            throw new \Exception('json_decode exception');
+        }
+        if ($data['codeRetour'] !== 0) {
+            throw new PisteException($data['libelle']);
+        }
 
-
-
+        return (null !== $classe_objet_en_retour) ? new $classe_objet_en_retour($data) : $data;
+    }
 }

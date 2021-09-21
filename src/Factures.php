@@ -11,6 +11,11 @@ use PhpChorusPiste\ParameterCollection\LignePosteSoumettreInputCollection;
 use PhpChorusPiste\ParameterCollection\LigneTvaSoumettreInputCollection;
 use PhpChorusPiste\ParameterCollection\PieceJointeComplentaireSoumettreInputCollection;
 use PhpChorusPiste\ParameterCollection\SoumettreFacturePieceJointePrincipaleCollection;
+use PhpChorusPiste\Retour\WsRetour;
+use PhpChorusPiste\Retour\WsRetourConsulterHistoriqueFacture;
+use PhpChorusPiste\Retour\WsRetourDeposerFluxFacture;
+use PhpChorusPiste\Retour\WsRetourDeposerPdfFacture;
+use PhpChorusPiste\Retour\WsRetourSoumettreFacture;
 
 /**
  * Class d'execution des appels des api de piste depuis le reseau internet
@@ -35,21 +40,19 @@ class Factures {
      * @param string $syntaxeFlux
      * @param bool   $avecSignature
      *
-     * @return mixed
+     * @return WsRetourDeposerFluxFacture
      * @throws \Exception
      */
     public function deposerFlux(
         string $fichierFlux_path,
-        string $syntaxeFlux = IFlux::IN_DP_E2_CII_FACTURX,
+        string $syntaxeFlux = ISyntaxeFlux::IN_DP_E2_CII_FACTURX,
         string $nomFichier = null,
         bool $avecSignature = false,
         int $idUtilisateurCourant = 0
-
-
-    ) {
+    ): WsRetour {
         $nomFichier = $nomFichier ?? basename($fichierFlux_path);
 
-        $request  = $this->Piste->Client()->post(
+        return $this->Piste->post(
             static::BASE_PATH.'/v1/deposer/flux',
             [
                 'json' => [
@@ -59,15 +62,9 @@ class Factures {
                     'syntaxeFlux'          => $syntaxeFlux,
                     'avecSignature'        => $avecSignature,
                 ],
-            ]
+            ],
+            WsRetourDeposerFluxFacture::class
         );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        return $data;
     }
 
     /**
@@ -76,7 +73,7 @@ class Factures {
      * @param string $nomFichier (Si null, sera remplacer par le nom du fichier correspondant au $fichierFacture_path)
      * @param int    $idUtilisateurCourant
      *
-     * @return mixed
+     * @return WsRetourDeposerPdfFacture
      * @throws \Exception
      */
     public function deposerPDFFacture(
@@ -84,10 +81,10 @@ class Factures {
         string $formatDepot = IFormatDepot::PDF_NON_SIGNE,
         string $nomFichier = null,
         int $idUtilisateurCourant = 0
-    ) {
+    ): WsRetour {
         $nomFichier = $nomFichier ?? basename($fichierFacture_path);
 
-        $request  = $this->Piste->Client()->post(
+        return $this->Piste->post(
             static::BASE_PATH.'/v1/deposer/pdf',
             [
                 'json' => [
@@ -96,18 +93,10 @@ class Factures {
                     'nomFichier'           => $nomFichier,
                     'formatDepot'          => $formatDepot,
                 ],
-            ]
+            ],
+            WsRetourDeposerPdfFacture::class
         );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        return $data;
     }
-
-
 
 
     /**
@@ -125,7 +114,7 @@ class Factures {
      * @param \PhpChorusPiste\ParameterCollection\PieceJointeComplentaireSoumettreInputCollection $PieceJointeComplentaireSoumettreInputCollection
      * @param string                                                                              $commentaire
      *
-     * @return mixed
+     * @return WsRetourSoumettreFacture
      * @throws \Exception
      * @see https://developer.aife.economie.gouv.fr/api-center
      * @see https://communaute.chorus-pro.gouv.fr/soumettre-facture/
@@ -147,8 +136,8 @@ class Factures {
         string $commentaire
 
 
-    ) {
-        $request  = $this->Piste->Client()->post(
+    ): WsRetour {
+        return $this->Piste->post(
             static::BASE_PATH.'/v1/soumettre',
             [
                 'json' => [
@@ -167,18 +156,9 @@ class Factures {
                     'pieceJointeComplementaire' => $PieceJointeComplentaireSoumettreInputCollection,
                     'commentaire'               => $commentaire,
                 ],
-            ]
+            ],
+            WsRetourSoumettreFacture::class
         );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new PisteException($data->libelle);
-        }
-        return $data;
     }
 
     /**
@@ -187,7 +167,7 @@ class Factures {
      * @param int $idEspace
      * @param int $nbResultatsMaximum
      *
-     * @return mixed
+     * @return WsRetourConsulterHistoriqueFacture
      * @throws \Exception
      */
     public function consulterHistoriqueFacture(
@@ -195,8 +175,8 @@ class Factures {
         int $idFacture = 0,
         int $idEspace = 0,
         int $nbResultatsMaximum = 0
-    ) {
-        $request  = $this->Piste->Client()->post(
+    ): WsRetour {
+        return $this->Piste->post(
             static::BASE_PATH.'/v1/consulter/historique',
             [
                 'json' => [
@@ -205,18 +185,9 @@ class Factures {
                     'idEspace'             => $idEspace,
                     'nbResultatsMaximum'   => $nbResultatsMaximum,
                 ],
-            ]
+            ],
+            WsRetourConsulterHistoriqueFacture::class
         );
-        $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, false, 512);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
-        }
-        if ($data->codeRetour !== 0) {
-            throw new PisteException($data->libelle);
-        }
-        return $data;
     }
 
 }
