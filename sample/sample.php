@@ -58,8 +58,8 @@ function deposerFactureEtSoumettre() {
         throw new Exception('Pas de coordonnée bancaire pour attacher la facture.');
     }
 
-    var_dump($recupererCoordonneesBancairesValidesResult);
-    die();
+//    var_dump($recupererCoordonneesBancairesValidesResult);
+//    die();
 
     $idCoordonneeBancaire = null;
     foreach($recupererCoordonneesBancairesValidesResult->listeCoordonneeBancaire as $CoordonneeBancaire) {
