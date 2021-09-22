@@ -3,29 +3,15 @@
 namespace PisteGouvFr\Api\ChorusPro\Parameter;
 
 
-class ParametresRechercherServicesStructure implements \JsonSerializable {
+class ParametresRechercherStructure implements \JsonSerializable {
 
     const TRISENS_ASC  = 'Ascendant';
     const TRISENS_DESC = 'Descendant';
-    //    const TRISENS      = [
-    //        self::TRISENS_ASC,
-    //        self::TRISENS_DESC,
-    //    ];
 
-
-    const TRICOLONNE_CODESERVICE    = 'CodeService';
-    const TRICOLONNE_LIBELLESERVICE = 'LibelleService';
-    const TRICOLONNE_DATEDBTSERVICE = 'DateDbtService';
-    const TRICOLONNE_DATEFINSERVICE = 'DateFinService';
-    const TRICOLONNE_ESTACTIF       = 'EstActif';
-
-    //    const TRICOLONNE = [
-    //        self::TRICOLONNE_CODESERVICE,
-    //        self::TRICOLONNE_LIBELLESERVICE,
-    //        self::TRICOLONNE_DATEDBTSERVICE,
-    //        self::TRICOLONNE_DATEFINSERVICE,
-    //        self::TRICOLONNE_ESTACTIF,
-    //    ];
+    const TRICOLONNE_IDENTIFIANTSTRUCTURE     = 'IdentifiantStructure';
+    const TRICOLONNE_DESIGNATIONSTRUCTURE     = 'DesignationStructure';
+    const TRICOLONNE_TYPEIDENTIFIANTSTRUCTURE = 'TypeIdentifiantStructure';
+    const TRICOLONNE_STATUT                   = 'Statut';
 
 
     /** @car int|null */
@@ -55,7 +41,7 @@ class ParametresRechercherServicesStructure implements \JsonSerializable {
      * @param int    $taillePageGenerique
      * @param int    $indexPageGenerique
      */
-    public function __construct(int $pageResultatDemandee = 0, int $nbResultatsParPage = 0, string $triSens = null, string $triColonne = null, array $champsDeTri = null, string $ordreTriGenerique = null, int $taillePageGenerique = null, int $indexPageGenerique = null) {
+    public function __construct(int $pageResultatDemandee = 0, int $nbResultatsParPage = 0, string $triSens = self::TRISENS_DESC, string $triColonne = self::TRICOLONNE_IDENTIFIANTSTRUCTURE, array $champsDeTri = [], string $ordreTriGenerique = self::TRISENS_DESC, int $taillePageGenerique = 0, int $indexPageGenerique = 0) {
         $this->pageResultatDemandee = $pageResultatDemandee;
         $this->nbResultatsParPage   = $nbResultatsParPage;
         $this->triSens              = $triSens;

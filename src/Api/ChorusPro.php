@@ -15,18 +15,18 @@ class ChorusPro extends Piste {
     protected $tech_username;
     protected $tech_password;
 
-    public function __construct(string $client_id, string $client_secret, string $tech_username, string $tech_password, bool $sandbox = true) {
+    public function __construct(string $client_id, string $client_secret, string $tech_username, string $tech_password, bool $sandbox = true, bool $depuis_RIE = false) {
         $this->tech_username = $tech_username;
         $this->tech_password = $tech_password;
 
-        parent::__construct($client_id, $client_secret, $sandbox);
+        parent::__construct($client_id, $client_secret, $sandbox, $depuis_RIE);
     }
 
 
     public function initClient() {
         $this->client = new Client(
             [
-                'base_uri'        => static::getApiUrl($this->sandbox,$this->depuis_RIE),
+                'base_uri'        => static::getApiUrl($this->sandbox, $this->depuis_RIE),
                 'allow_redirects' => true,
                 'headers'         => [
                     'Authorization' => 'Bearer '.$this->access_token,
