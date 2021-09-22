@@ -1,9 +1,9 @@
 # chorus-piste
 
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Gizmo091/chorus-piste/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/Gizmo091/piste-gouv-fr/graphs/commit-activity)
 ![Maintainer](https://img.shields.io/badge/maintainer-Mathieu%20Vedie-blue)
-[![Latest release](https://badgen.net/github/release/Gizmo091/chorus-piste)](https://github.com/Gizmo091/chorus-piste/releases/)
-[![GitHub latest commit](https://badgen.net/github/last-commit/Gizmo091/chorus-piste)](https://github.com/Gizmo091/chorus-piste/commit/)
+[![Latest release](https://badgen.net/github/release/Gizmo091/piste-gouv-fr)](https://github.com/Gizmo091/piste-gouv-fr/releases/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/Gizmo091/piste-gouv-fr)](https://github.com/Gizmo091/piste-gouv-fr/commit/)
 [![Unlicense](https://img.shields.io/badge/License-Unlicense-blue.svg)](https://unlicense.org/)
 
 [![Total Downloads](https://poser.pugx.org/behat/mink/downloads.png)](https://packagist.org/packages/behat/mink)
