@@ -1,6 +1,6 @@
 {
-  "name": "zmog/php-chorus-piste",
-  "description": "Package PHP pour la connexion et l'envoi de documents sur Chorus PRO par le biais de la plateforme de l'AIFE nommé PISTE",
+  "name": "zmog/piste-gouv-fr",
+  "description": "Package PHP gerer les appels aux API REST accessible via le site piste.gouv.fr",
   "type": "library",
   "authors": [
     {
@@ -27,10 +27,7 @@
   },
   "autoload": {
     "psr-4": {
-      "PhpChorusPiste\\": "src/",
-      "PhpChorusPiste\\Parameter\\": "src/parameter",
-      "PhpChorusPiste\\Retour\\": "src/retour",
-      "PhpChorusPiste\\ParameterCollection\\": "src/parameter/collection"
+      "PisteGouvFr\\": "src/"
     }
   }
 }

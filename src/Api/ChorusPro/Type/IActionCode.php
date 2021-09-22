@@ -1,0 +1,12 @@
+<?php
+
+
+namespace PisteGouvFr\Api\ChorusPro\Type;
+
+
+interface IActionCode {
+    const TELECHARGEMENT_FACTURE  = 'TELECHARGEMENT_FACTURE';
+    const ACQUITTEMENT_REJET      = 'ACQUITTEMENT_REJET';
+    const ACQUITTEMENT_SUSPENSION = 'ACQUITTEMENT_SUSPENSION';
+    const TRAITEMENT_REJET        = 'TRAITEMENT_REJET';
+}

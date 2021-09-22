@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpChorusPiste;
+namespace PisteGouvFr;
 
 class PisteException extends \Exception {
 

@@ -13,4 +13,6 @@ Package afin d'effectuer des appels aux API REST de Chorus Pro via Piste.
 
 Merci à [SBordier44 (Sylvain Bordier)](https://github.com/SBordier44) d'avoir initié le travail. 
 
-Ce package est en cours de développement. 
+Ce package est en cours de développement.
+
+Seules les méthodes dont j'avais besoin ont été implémentées.
