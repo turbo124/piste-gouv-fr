@@ -7,11 +7,11 @@ use PisteGouvFr\Api\ChorusPro\Type\IStatutStructure;
 use PisteGouvFr\Api\ChorusPro\Type\ITypeIdentifiantStructure;
 
 /**
- * @property int    idService
- * @property string codeService
- * @property string libelleService
- * @property string statutService
- * @property bool   estActif
+ * @property int    idStructureCPP
+ * @property string typeIdentifiantStructure
+ * @property string identifiantStructure
+ * @property string designationStructure
+ * @property string statut
  */
 class StructureAAfficher extends WsRetour {
 
