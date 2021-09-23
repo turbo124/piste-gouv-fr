@@ -4,7 +4,7 @@ namespace PisteGouvFr\Api\ChorusPro\WsRetour;
 
 
 /**
- * @property \PisteGouvFr\Api\ChorusPro\WsRetour\StructureAAfficher[] listeServices
+ * @property \PisteGouvFr\Api\ChorusPro\WsRetour\StructureAAfficher[] listeStructures
  * @property \PisteGouvFr\Api\ChorusPro\WsRetour\ParametresRetour     parametresRetour
  */
 class WsRetourRechercherStructure extends WsRetour {
