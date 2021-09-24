@@ -35,14 +35,14 @@ class SoumettreFactureReferences implements \JsonSerializable {
     private $modePaiement;
 
     /**
-     * @param string                                                           $deviseFacture
-     * @param string|\PisteGouvFr\Api\ChorusPro\Type\ITypeFacture              $typeFacture
-     * @param string|\PisteGouvFr\Api\ChorusPro\Type\ITypeIdentifiantStructure $typeTva
-     * @param string|null                                                      $motifExonerationTva
-     * @param string                                                           $numeroMarche
-     * @param string|null                                                      $numeroBonCommande
-     * @param string|null                                                      $numeroFactureOrigine
-     * @param string|\PisteGouvFr\Api\ChorusPro\Type\IModePaiement             $modePaiement
+     * @param string                                               $deviseFacture
+     * @param string|\PisteGouvFr\Api\ChorusPro\Type\ITypeFacture  $typeFacture
+     * @param string|\PisteGouvFr\Api\ChorusPro\Type\ITypeTva      $typeTva
+     * @param string|null                                          $motifExonerationTva
+     * @param string                                               $numeroMarche
+     * @param string|null                                          $numeroBonCommande
+     * @param string|null                                          $numeroFactureOrigine
+     * @param string|\PisteGouvFr\Api\ChorusPro\Type\IModePaiement $modePaiement
      */
     public function __construct(string $deviseFacture, string $typeFacture, string $typeTva, string $motifExonerationTva = null, string $numeroMarche, string $numeroBonCommande = null, string $numeroFactureOrigine = null, string $modePaiement) {
         $this->deviseFacture        = $deviseFacture;
