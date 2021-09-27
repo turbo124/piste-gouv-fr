@@ -99,9 +99,9 @@ class WsRetourConsulterHistoriqueFacture extends WsRetour {
                 IStatutCourantCode::TECHNIQUE_INCONNU,
             ]),
 
-            new FieldDefinition('historiquesDesStatuts', FieldDefinition::TYPE_OBJECT_ARRAY, false, null, HistoriquesStatus::class),
-            new FieldDefinition('historiquesDesEvenementsComplementaires', FieldDefinition::TYPE_OBJECT_ARRAY, false, null, HistoriquesEvenements::class),
-            new FieldDefinition('historiquesDesActionsUtilisateurs', FieldDefinition::TYPE_OBJECT_ARRAY, false, null, HistoriquesActionsUtilisateurs::class),
+            new FieldDefinition('historiquesDesStatuts', FieldDefinition::TYPE_OBJECT, false, null, HistoriquesStatus::class),
+            new FieldDefinition('historiquesDesEvenementsComplementaires', FieldDefinition::TYPE_OBJECT, false, null, HistoriquesEvenements::class),
+            new FieldDefinition('historiquesDesActionsUtilisateurs', FieldDefinition::TYPE_OBJECT, false, null, HistoriquesActionsUtilisateurs::class),
             new FieldDefinition('derniereAction', FieldDefinition::TYPE_OBJECT, false, null, DerniereAction::class)
         );
     }

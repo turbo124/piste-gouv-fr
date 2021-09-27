@@ -93,6 +93,7 @@ class FieldDefinition {
             case static::TYPE_STRING_DATETIME:
                 foreach ([
                              'Y-m-d\TH:i:s.vp',
+                             'Y-m-d H:i',
                              'Y-m-d',
                          ] as $date_format_possible) {
                     $value_tmp = \DateTime::createFromFormat($date_format_possible, $value);

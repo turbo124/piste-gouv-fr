@@ -54,6 +54,8 @@ class ChorusPro extends Piste {
         $response = $request->getBody()
             ->getContents();
         $data     = json_decode($response, true);
+//        var_dump($data);
+
         if (null === $data) {
             throw new \Exception('json_decode exception');
         }
