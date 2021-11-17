@@ -14,7 +14,7 @@ class SoumettreFactureDestinataire implements \JsonSerializable {
      * @param string $codeDestinataire
      * @param string $codeServiceExecutant
      */
-    public function __construct(string $codeDestinataire, string $codeServiceExecutant) {
+    public function __construct(string $codeDestinataire, string $codeServiceExecutant = null) {
         $this->codeDestinataire     = $codeDestinataire;
         $this->codeServiceExecutant = $codeServiceExecutant;
     }
