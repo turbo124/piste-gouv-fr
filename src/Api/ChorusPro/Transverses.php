@@ -2,8 +2,10 @@
 
 namespace PisteGouvFr\Api\ChorusPro;
 
+use PisteGouvFr\Api\ChorusPro\Parameter\ParametresRechercherServiceExecutant;
 use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetour;
 use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourConsulterCRDetaille;
+use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRechercherServiceExecutant;
 use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRecupererCoordonneesBancairesValides;
 use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRecupererStructure;
 use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourStructuresPourUtilisateur;
@@ -104,6 +106,23 @@ class Transverses extends ChorusProApi {
                     'idPieceJointeObjet' => $idPieceJointeObjet,
                 ],
             ]
+        );
+        return true;
+    }
+
+    public function rechercherServiceExecutant(int $idDestinataireCPP, string $codeServiceExecutant = null, string $nomServiceExecutant = null, bool $actif = null, ParametresRechercherServiceExecutant $ParametresRechercherServiceExecutant = null) {
+        $this->ChorusPro->post(
+            static::getBasePath().'/v1/rechercher/serviceexecutant',
+            [
+                'json' => [
+                    'idDestinataireCPP' => $idDestinataireCPP,
+                    'codeServiceExecutant' => $codeServiceExecutant,
+                    'nomServiceExecutant' => $nomServiceExecutant,
+                    'actif' => $actif,
+                    'parametresRecherche' => $ParametresRechercherServiceExecutant,
+                ],
+            ],
+            WsRetourRechercherServiceExecutant::class
         );
         return true;
     }

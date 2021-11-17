@@ -19,7 +19,7 @@ class Structures extends ChorusProApi {
     }
 
     /**
-     * @param int                                                                             $idStructure
+     * @param int                                                                            $idStructure
      * @param \PisteGouvFr\Api\ChorusPro\Parameter\ParametresRechercherServicesStructure|null $ParametresRechercherServicesStructure
      *
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRechercherServicesStructure
