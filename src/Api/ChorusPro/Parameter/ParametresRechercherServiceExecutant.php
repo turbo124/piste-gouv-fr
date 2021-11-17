@@ -14,8 +14,6 @@ class ParametresRechercherServiceExecutant implements \JsonSerializable {
 
 
     /** @car int|null */
-    private $nbResultatsMaximum;
-    /** @car int|null */
     private $pageResultatDemandee;
     /** @car int|null */
     private $nbResultatsParPage;
@@ -42,8 +40,7 @@ class ParametresRechercherServiceExecutant implements \JsonSerializable {
      * @param int    $taillePageGenerique
      * @param int    $indexPageGenerique
      */
-    public function __construct(int $nbResultatsMaximum = 0, int $pageResultatDemandee = 0, int $nbResultatsParPage = 0, string $triSens = null, string $triColonne = null, array $champsDeTri = null, string $ordreTriGenerique = null, int $taillePageGenerique = null, int $indexPageGenerique = null) {
-        $this->nbResultatsMaximum   = $nbResultatsMaximum;
+    public function __construct(int $pageResultatDemandee = 0, int $nbResultatsParPage = 1, string $triSens = null, string $triColonne = null, array $champsDeTri = null, string $ordreTriGenerique = null, int $taillePageGenerique = null, int $indexPageGenerique = null) {
         $this->pageResultatDemandee = $pageResultatDemandee;
         $this->nbResultatsParPage   = $nbResultatsParPage;
         $this->triSens              = $triSens;
@@ -57,7 +54,6 @@ class ParametresRechercherServiceExecutant implements \JsonSerializable {
 
     public function jsonSerialize(): array {
         return array_filter([
-//                                'nbResultatsMaximum'   => $this->nbResultatsMaximum,
                                 'pageResultatDemandee' => $this->pageResultatDemandee,
                                 'nbResultatsParPage'   => $this->nbResultatsParPage,
                                 'triSens'              => $this->triSens,
