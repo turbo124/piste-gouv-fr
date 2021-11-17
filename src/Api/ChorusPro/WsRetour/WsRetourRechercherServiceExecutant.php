@@ -4,8 +4,8 @@ namespace PisteGouvFr\Api\ChorusPro\WsRetour;
 
 
 /**
- * @property \PisteGouvFr\Api\ChorusPro\WsRetour\ServiceExpose[] listeServices
- * @property \PisteGouvFr\Api\ChorusPro\WsRetour\ParametresRetour     parametresRetour
+ * @property \PisteGouvFr\Api\ChorusPro\WsRetour\RechercherServiceExecutantOutput[] listeServices
+ * @property \PisteGouvFr\Api\ChorusPro\WsRetour\ParametresRetour                   parametresRetour
  */
 class WsRetourRechercherServiceExecutant extends WsRetour {
 
