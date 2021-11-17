@@ -121,7 +121,7 @@ class Transverses extends ChorusProApi {
      * @throws \PisteGouvFr\PisteException
      */
     public function rechercherServiceExecutant(int $idDestinataireCPP, string $codeServiceExecutant = null, string $nomServiceExecutant = null, bool $actif = null, ParametresRechercherServiceExecutant $ParametresRechercherServiceExecutant = null) {
-        $this->ChorusPro->post(
+        return $this->ChorusPro->post(
             static::getBasePath().'/v1/rechercher/serviceexecutant',
             [
                 'json' => [
@@ -134,6 +134,5 @@ class Transverses extends ChorusProApi {
             ],
             WsRetourRechercherServiceExecutant::class
         );
-        return true;
     }
 }

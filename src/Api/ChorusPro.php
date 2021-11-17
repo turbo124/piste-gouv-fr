@@ -54,7 +54,6 @@ class ChorusPro extends Piste {
         $response = $request->getBody()
             ->getContents();
         $data     = json_decode($response, true);
-//        var_dump($data);
 
         if (null === $data) {
             throw new \Exception('json_decode exception');
@@ -62,6 +61,8 @@ class ChorusPro extends Piste {
         if ($data['codeRetour'] !== 0) {
             throw new PisteException($data['libelle']);
         }
+
+//        var_dump($classe_objet_en_retour);
 
         return (null !== $classe_objet_en_retour) ? new $classe_objet_en_retour($data) : $data;
     }
