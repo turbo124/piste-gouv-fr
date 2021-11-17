@@ -110,6 +110,16 @@ class Transverses extends ChorusProApi {
         return true;
     }
 
+    /**
+     * @param int                                                                            $idDestinataireCPP
+     * @param string|null                                                                    $codeServiceExecutant
+     * @param string|null                                                                    $nomServiceExecutant
+     * @param bool|null                                                                      $actif
+     * @param \PisteGouvFr\Api\ChorusPro\Parameter\ParametresRechercherServiceExecutant|null $ParametresRechercherServiceExecutant
+     *
+     * @return WsRetourRechercherServiceExecutant
+     * @throws \PisteGouvFr\PisteException
+     */
     public function rechercherServiceExecutant(int $idDestinataireCPP, string $codeServiceExecutant = null, string $nomServiceExecutant = null, bool $actif = null, ParametresRechercherServiceExecutant $ParametresRechercherServiceExecutant = null) {
         $this->ChorusPro->post(
             static::getBasePath().'/v1/rechercher/serviceexecutant',
