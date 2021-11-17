@@ -57,7 +57,7 @@ class ParametresRechercherServiceExecutant implements \JsonSerializable {
 
     public function jsonSerialize(): array {
         return array_filter([
-                                'nbResultatsMaximum'   => $this->nbResultatsMaximum,
+//                                'nbResultatsMaximum'   => $this->nbResultatsMaximum,
                                 'pageResultatDemandee' => $this->pageResultatDemandee,
                                 'nbResultatsParPage'   => $this->nbResultatsParPage,
                                 'triSens'              => $this->triSens,
