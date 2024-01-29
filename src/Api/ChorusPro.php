@@ -3,6 +3,7 @@
 namespace PisteGouvFr\Api;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use PisteGouvFr\Piste;
 use PisteGouvFr\PisteException;
 
@@ -49,8 +50,15 @@ class ChorusPro extends Piste {
             throw new PisteException('La classe fourni en parametre de la methode '.__FUNCTION__.' de la classe '.__CLASS__.' n\'existe pas !');
         }
 
-        $request  = $this->Client()
-            ->post($uri, $options);
+        try {
+            $request = $this->Client()
+                            ->post( $uri, $options );
+        }
+        catch (ClientException $CE) {
+            throw $CE;
+//            var_dump((string)$CE->getResponse()->getBody()->getContents());
+//            die();
+        }
         $response = $request->getBody()
             ->getContents();
         $data     = json_decode($response, true);
