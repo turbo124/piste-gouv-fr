@@ -56,7 +56,7 @@ class SoumettreFactureReferences implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'deviseFacture'        => $this->deviseFacture,
             'typeFacture'          => $this->typeFacture,

@@ -11,6 +11,7 @@ use PisteGouvFr\Api\ChorusPro\Type\IDerniereActionCode;
  */
 class DerniereAction extends WsRetour {
 
+    /** @noinspection PhpClassConstantAccessedViaChildClassInspection */
     protected static function getFieldDefinitions(): FieldDefinitionCollection {
         return new FieldDefinitionCollection(
             new FieldDefinition('derniereActionId', FieldDefinition::TYPE_INT_64BIT),

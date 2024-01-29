@@ -32,7 +32,7 @@ class PieceJointeComplentaireSoumettreInput implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'pieceJointeComplementaireDesignation'        => $this->pieceJointeComplementaireDesignation,
             'pieceJointeComplementaireType'               => $this->pieceJointeComplementaireType,

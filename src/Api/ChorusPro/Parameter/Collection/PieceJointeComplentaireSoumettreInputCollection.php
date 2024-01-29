@@ -14,7 +14,7 @@ class PieceJointeComplentaireSoumettreInputCollection implements \JsonSerializab
     }
 
 
-    public function jsonSerialize() {
+    public function jsonSerialize():mixed {
         return $this->PieceJointeComplentaireSoumettreInput_a;
     }
 }

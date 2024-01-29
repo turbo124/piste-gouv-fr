@@ -14,7 +14,7 @@ class SoumettreFacturePieceJointePrincipaleCollection implements \JsonSerializab
     }
 
 
-    public function jsonSerialize() {
+    public function jsonSerialize():mixed {
         return $this->SoumettreFacturePieceJointePrincipale_a;
     }
 }

@@ -67,7 +67,7 @@ class ParametresRechercherServicesStructure implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return array_filter([
                                 'pageResultatDemandee' => $this->pageResultatDemandee,
                                 'nbResultatsParPage'   => $this->nbResultatsParPage,

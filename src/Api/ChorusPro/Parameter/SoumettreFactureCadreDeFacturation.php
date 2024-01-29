@@ -23,7 +23,7 @@ class SoumettreFactureCadreDeFacturation implements \JsonSerializable {
         $this->codeServiceValideur   = $codeServiceValideur;
     }
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'codeCadreFacturation'  => $this->codeCadreFacturation,
             'codeStructureValideur' => $this->codeStructureValideur,

@@ -24,7 +24,7 @@ class SoumettreFactureFournisseur implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'idFournisseur'                       => $this->idFournisseur,
             'idServiceFournisseur'                => $this->idServiceFournisseur,

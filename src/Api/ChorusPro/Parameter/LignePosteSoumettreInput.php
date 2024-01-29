@@ -48,7 +48,7 @@ class LignePosteSoumettreInput implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'lignePosteNumero'            => $this->lignePosteNumero,
             'lignePosteReference'         => $this->lignePosteReference,

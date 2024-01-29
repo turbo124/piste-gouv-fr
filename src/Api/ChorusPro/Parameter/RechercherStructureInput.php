@@ -64,7 +64,7 @@ class RechercherStructureInput implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return array_filter([
                                 'raisonSocialeStructure'   => $this->raisonSocialeStructure,
                                 'identifiantStructure'     => $this->identifiantStructure,

@@ -20,7 +20,7 @@ class SoumettreFacturePieceJointePrincipale implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'pieceJointePrincipaleDesignation' => $this->pieceJointePrincipaleDesignation,
             'pieceJointePrincipaleId'          => $this->pieceJointePrincipaleId,

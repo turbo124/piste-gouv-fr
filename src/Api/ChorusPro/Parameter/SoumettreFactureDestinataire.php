@@ -11,8 +11,8 @@ class SoumettreFactureDestinataire implements \JsonSerializable {
     private $codeServiceExecutant;
 
     /**
-     * @param string $codeDestinataire
-     * @param string $codeServiceExecutant
+     * @param string      $codeDestinataire
+     * @param string|null $codeServiceExecutant
      */
     public function __construct(string $codeDestinataire, string $codeServiceExecutant = null) {
         $this->codeDestinataire     = $codeDestinataire;
@@ -20,7 +20,7 @@ class SoumettreFactureDestinataire implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'codeDestinataire'     => $this->codeDestinataire,
             'codeServiceExecutant' => $this->codeServiceExecutant,

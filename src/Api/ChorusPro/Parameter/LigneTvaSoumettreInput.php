@@ -28,7 +28,7 @@ class LigneTvaSoumettreInput implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'ligneTvaTaux'                 => $this->ligneTvaTaux,
             'ligneTvaMontantBaseHtParTaux' => $this->ligneTvaMontantBaseHtParTaux,

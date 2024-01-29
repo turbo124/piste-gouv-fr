@@ -36,7 +36,7 @@ class SoumettreFactureMontantTotal implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'montantHtTotal'          => $this->montantHtTotal,
             'montantTVA'              => $this->montantTVA,

@@ -14,7 +14,7 @@ class LigneTvaSoumettreInputCollection implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize() {
+    public function jsonSerialize() :mixed {
         return $this->LigneTvaSoumettreInput_a;
     }
 }
