@@ -7,7 +7,7 @@ use PisteGouvFr\Api\ChorusPro\Parameter\PieceJointeComplentaireSoumettreInput;
 
 class PieceJointeComplentaireSoumettreInputCollection implements \JsonSerializable {
 
-    private $PieceJointeComplentaireSoumettreInput_a;
+    private array $PieceJointeComplentaireSoumettreInput_a;
 
     public function __construct(PieceJointeComplentaireSoumettreInput ...$PieceJointeComplentaireSoumettreInput_a) {
         $this->PieceJointeComplentaireSoumettreInput_a = $PieceJointeComplentaireSoumettreInput_a;

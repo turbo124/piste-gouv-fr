@@ -19,21 +19,21 @@ class FieldDefinition {
 
 
     /** @var string */
-    private $label;
+    private string $label;
     /** @var string */
-    private $type;
+    private string $type;
     /** @var bool */
-    private $requis;
-    /** @var array */
-    private $enumValues;
+    private bool $requis;
+    /** @var array|null */
+    private ?array $enumValues;
     /** @var string|null Nom de class pour les object imbriqué dans un retour */
-    private $nomDeClasse;
+    private ?string $nomDeClasse;
 
     /**
      * @param string      $label
      * @param string      $type
      * @param bool        $requis
-     * @param array       $enumValues
+     * @param array|null  $enumValues
      * @param string|null $nomDeClasse
      */
     public function __construct(string $label, string $type, bool $requis = false, array $enumValues = null, string $nomDeClasse = null) {

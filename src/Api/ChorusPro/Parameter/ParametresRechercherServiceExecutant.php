@@ -13,32 +13,32 @@ class ParametresRechercherServiceExecutant implements \JsonSerializable {
     const TRICOLONNE_NOMSERVICEEXECUTANT  = 'NomServiceExecutant';
 
 
-    /** @car int|null */
-    private $pageResultatDemandee;
-    /** @car int|null */
-    private $nbResultatsParPage;
+    /** @car int */
+    private int $pageResultatDemandee;
+    /** @car int */
+    private int $nbResultatsParPage;
     /** @car string|null */
-    private $triSens;
+    private ?string $triSens;
     /** @car string|null */
-    private $triColonne;
-    /** @car  array */
-    private $champsDeTri;
+    private ?string $triColonne;
+    /** @car  array|null */
+    private ?array $champsDeTri;
     /** @car string|null */
-    private $ordreTriGenerique;
+    private ?string $ordreTriGenerique;
     /** @car int|null */
-    private $taillePageGenerique;
+    private ?int $taillePageGenerique;
     /** @car int|null */
-    private $indexPageGenerique;
+    private ?int $indexPageGenerique;
 
     /**
-     * @param int    $pageResultatDemandee
-     * @param int    $nbResultatsParPage
-     * @param string $triSens
-     * @param string $triColonne
-     * @param array  $champsDeTri
-     * @param string $ordreTriGenerique
-     * @param int    $taillePageGenerique
-     * @param int    $indexPageGenerique
+     * @param int         $pageResultatDemandee
+     * @param int         $nbResultatsParPage
+     * @param string|null $triSens
+     * @param string|null $triColonne
+     * @param array|null  $champsDeTri
+     * @param string|null $ordreTriGenerique
+     * @param int|null    $taillePageGenerique
+     * @param int|null    $indexPageGenerique
      */
     public function __construct(int $pageResultatDemandee = 0, int $nbResultatsParPage = 1, string $triSens = null, string $triColonne = null, array $champsDeTri = null, string $ordreTriGenerique = null, int $taillePageGenerique = null, int $indexPageGenerique = null) {
         $this->pageResultatDemandee = $pageResultatDemandee;

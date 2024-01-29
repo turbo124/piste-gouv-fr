@@ -14,7 +14,7 @@ abstract class ChorusProApi {
     /**
      * @var \PisteGouvFr\Api\ChorusPro
      */
-    protected $ChorusPro;
+    protected ChorusPro $ChorusPro;
 
     public final function __construct(ChorusPro $ChorusPro) {
         $this->ChorusPro = $ChorusPro;

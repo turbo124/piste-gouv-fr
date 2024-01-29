@@ -6,23 +6,23 @@ namespace PisteGouvFr\Api\ChorusPro\Parameter;
 class LignePosteSoumettreInput implements \JsonSerializable {
 
     /** @var int */
-    private $lignePosteNumero;
+    private int $lignePosteNumero;
     /** @var string */
-    private $lignePosteReference;
+    private string $lignePosteReference;
     /** @var string */
-    private $lignePosteDenomination;
+    private string $lignePosteDenomination;
     /** @var float */
-    private $lignePosteQuantite;
+    private float $lignePosteQuantite;
     /** @var string */
-    private $lignePosteUnite;
+    private string $lignePosteUnite;
     /** @var float */
-    private $lignePosteMontantUnitaireHT;
-    /** @var float */
-    private $lignePosteMontantRemiseHT;
-    /** @var string */
-    private $lignePosteTauxTva;
-    /** @var float */
-    private $lignePosteTauxTvaManuel;
+    private float $lignePosteMontantUnitaireHT;
+    /** @var float|null */
+    private ?float $lignePosteMontantRemiseHT;
+    /** @var string|null */
+    private ?string $lignePosteTauxTva;
+    /** @var float|null */
+    private ?float $lignePosteTauxTvaManuel;
 
     /**
      * @param int    $lignePosteNumero

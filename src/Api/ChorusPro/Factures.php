@@ -30,11 +30,11 @@ class Factures extends ChorusProApi {
     }
 
     /**
-     * @param int    $idUtilisateurCourant
-     * @param string $fichierFlux_path
-     * @param string $nomFichier (Si null, sera remplacer par le nom du fichier correspondant au $fichierFlux_path)
-     * @param string $syntaxeFlux
-     * @param bool   $avecSignature
+     * @param string      $fichierFlux_path
+     * @param string      $syntaxeFlux
+     * @param string|null $nomFichier (Si null, sera remplacer par le nom du fichier correspondant au $fichierFlux_path)
+     * @param bool        $avecSignature
+     * @param int         $idUtilisateurCourant
      *
      * @return WsRetourDeposerFluxFacture
      * @throws \Exception
@@ -43,17 +43,17 @@ class Factures extends ChorusProApi {
         string $fichierFlux_path,
         string $syntaxeFlux = ISyntaxeFlux::IN_DP_E2_CII_FACTURX,
         string $nomFichier = null,
-        bool $avecSignature = false,
-        int $idUtilisateurCourant = 0
+        bool   $avecSignature = false,
+        int    $idUtilisateurCourant = 0
     ): WsRetour {
-        $nomFichier = $nomFichier ?? basename($fichierFlux_path);
+        $nomFichier = $nomFichier ?? basename( $fichierFlux_path );
 
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/deposer/flux',
+            static::getBasePath() . '/v1/deposer/flux',
             [
                 'json' => [
                     'idUtilisateurCourant' => $idUtilisateurCourant,
-                    'fichierFlux'          => base64_encode(file_get_contents($fichierFlux_path)),
+                    'fichierFlux'          => base64_encode( file_get_contents( $fichierFlux_path ) ),
                     'nomFichier'           => $nomFichier,
                     'syntaxeFlux'          => $syntaxeFlux,
                     'avecSignature'        => $avecSignature,
@@ -64,10 +64,11 @@ class Factures extends ChorusProApi {
     }
 
     /**
-     * @param string $fichierFacture_path
-     * @param string $formatDepot
-     * @param string $nomFichier (Si null, sera remplacer par le nom du fichier correspondant au $fichierFacture_path)
-     * @param int    $idUtilisateurCourant
+     * @param string      $fichierFacture_path
+     * @param string      $formatDepot
+     * @param string|null $nomFichier (Si null, sera remplacer par le nom du fichier correspondant au
+     *                                $fichierFacture_path)
+     * @param int         $idUtilisateurCourant
      *
      * @return WsRetourDeposerPdfFacture
      * @throws \Exception
@@ -76,16 +77,16 @@ class Factures extends ChorusProApi {
         string $fichierFacture_path,
         string $formatDepot = IFormatDepot::PDF_NON_SIGNE,
         string $nomFichier = null,
-        int $idUtilisateurCourant = 0
+        int    $idUtilisateurCourant = 0
     ): WsRetour {
-        $nomFichier = $nomFichier ?? basename($fichierFacture_path);
+        $nomFichier = $nomFichier ?? basename( $fichierFacture_path );
 
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/deposer/pdf',
+            static::getBasePath() . '/v1/deposer/pdf',
             [
                 'json' => [
                     'idUtilisateurCourant' => $idUtilisateurCourant,
-                    'fichierFacture'       => base64_encode(file_get_contents($fichierFacture_path)),
+                    'fichierFacture'       => base64_encode( file_get_contents( $fichierFacture_path ) ),
                     'nomFichier'           => $nomFichier,
                     'formatDepot'          => $formatDepot,
                 ],
@@ -116,25 +117,25 @@ class Factures extends ChorusProApi {
      * @see https://communaute.chorus-pro.gouv.fr/soumettre-facture/
      */
     public function soumettreFacture(
-        int $idUtilisateurCourant,
-        string $numeroFactureSaisi,
-        string $modeDepot,
-        string $dateFacture,
-        SoumettreFactureDestinataire $SoumettreFactureDestinataire,
-        SoumettreFactureFournisseur $SoumettreFactureFournisseur,
-        SoumettreFactureCadreDeFacturation $SoumettreFactureCadreDeFacturation,
-        SoumettreFactureReferences $SoumettreFactureReferences,
-        LignePosteSoumettreInputCollection $LignePosteSoumettreInputCollection,
-        LigneTvaSoumettreInputCollection $LigneTvaSoumettreInputCollection,
-        SoumettreFactureMontantTotal $SoumettreFactureMontantTotal,
+        int                                             $idUtilisateurCourant,
+        string                                          $numeroFactureSaisi,
+        string                                          $modeDepot,
+        string                                          $dateFacture,
+        SoumettreFactureDestinataire                    $SoumettreFactureDestinataire,
+        SoumettreFactureFournisseur                     $SoumettreFactureFournisseur,
+        SoumettreFactureCadreDeFacturation              $SoumettreFactureCadreDeFacturation,
+        SoumettreFactureReferences                      $SoumettreFactureReferences,
+        LignePosteSoumettreInputCollection              $LignePosteSoumettreInputCollection,
+        LigneTvaSoumettreInputCollection                $LigneTvaSoumettreInputCollection,
+        SoumettreFactureMontantTotal                    $SoumettreFactureMontantTotal,
         SoumettreFacturePieceJointePrincipaleCollection $SoumettreFacturePieceJointePrincipaleCollection,
         PieceJointeComplentaireSoumettreInputCollection $PieceJointeComplentaireSoumettreInputCollection,
-        string $commentaire
+        string                                          $commentaire
 
 
     ): WsRetour {
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/soumettre',
+            static::getBasePath() . '/v1/soumettre',
             [
                 'json' => [
                     'idUtilisateurCourant'      => $idUtilisateurCourant,
@@ -173,7 +174,7 @@ class Factures extends ChorusProApi {
         int $nbResultatsMaximum = 0
     ): WsRetour {
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/consulter/historique',
+            static::getBasePath() . '/v1/consulter/historique',
             [
                 'json' => [
                     'idUtilisateurCourant' => $idUtilisateurCourant,

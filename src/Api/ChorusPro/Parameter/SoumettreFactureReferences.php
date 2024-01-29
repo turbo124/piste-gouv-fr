@@ -9,30 +9,30 @@ use PisteGouvFr\Api\ChorusPro\Type\ITypeIdentifiantStructure;
 class SoumettreFactureReferences implements \JsonSerializable {
 
     /** @var string */
-    private $deviseFacture;
+    private string $deviseFacture;
     /**
      * @var string
      * @see ITypeFacture
      */
-    private $typeFacture;
+    private string $typeFacture;
     /**
      * @var string
      * @see ITypeIdentifiantStructure
      */
-    private $typeTva;
+    private string $typeTva;
+    /** @var string|null */
+    private ?string $motifExonerationTva;
     /** @var string */
-    private $motifExonerationTva;
-    /** @var string */
-    private $numeroMarche;
-    /** @var string */
-    private $numeroBonCommande;
-    /** @var string */
-    private $numeroFactureOrigine;
+    private string $numeroMarche;
+    /** @var string|null */
+    private ?string $numeroBonCommande;
+    /** @var string|null */
+    private ?string $numeroFactureOrigine;
     /**
      * @var string
      * @see \PisteGouvFr\Api\ChorusPro\Type\IModePaiement
      */
-    private $modePaiement;
+    private string $modePaiement;
 
     /**
      * @param string                                               $deviseFacture
@@ -44,7 +44,7 @@ class SoumettreFactureReferences implements \JsonSerializable {
      * @param string|null                                          $numeroFactureOrigine
      * @param string|\PisteGouvFr\Api\ChorusPro\Type\IModePaiement $modePaiement
      */
-    public function __construct(string $deviseFacture, string $typeFacture, string $typeTva, string $motifExonerationTva = null, string $numeroMarche, string $numeroBonCommande = null, string $numeroFactureOrigine = null, string $modePaiement) {
+    public function __construct( string $deviseFacture, string $typeFacture, string $typeTva, string $motifExonerationTva = null, string $numeroMarche, string $numeroBonCommande = null, string $numeroFactureOrigine = null, string $modePaiement ) {
         $this->deviseFacture        = $deviseFacture;
         $this->typeFacture          = $typeFacture;
         $this->typeTva              = $typeTva;

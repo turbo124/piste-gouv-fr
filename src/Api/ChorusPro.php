@@ -12,8 +12,8 @@ use PisteGouvFr\PisteException;
 class ChorusPro extends Piste {
 
 
-    protected $tech_username;
-    protected $tech_password;
+    protected string $tech_username;
+    protected string $tech_password;
 
     public function __construct(string $client_id, string $client_secret, string $tech_username, string $tech_password, bool $sandbox = true, bool $depuis_RIE = false) {
         $this->tech_username = $tech_username;
@@ -23,7 +23,7 @@ class ChorusPro extends Piste {
     }
 
 
-    public function initClient() {
+    public function initClient(): void {
         $this->client = new Client(
             [
                 'base_uri'        => static::getApiUrl($this->sandbox, $this->depuis_RIE),

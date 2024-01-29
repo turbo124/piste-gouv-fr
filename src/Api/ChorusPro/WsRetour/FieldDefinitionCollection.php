@@ -5,7 +5,7 @@ namespace PisteGouvFr\Api\ChorusPro\WsRetour;
 
 class FieldDefinitionCollection {
 
-    protected $FieldDefinition_a;
+    protected array $FieldDefinition_a;
 
     public function __construct(FieldDefinition ...$FieldDefinitions) {
         $this->FieldDefinition_a = $FieldDefinitions;

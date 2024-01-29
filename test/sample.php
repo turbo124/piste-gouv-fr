@@ -5,7 +5,7 @@ use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourDeposerPdfFacture;
 
 include(dirname(__DIR__).DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php');
 
-// Identifiant Sans Box pour effectuer des tests.
+// Identifiant Sand Box pour effectuer des tests.
 define('CLIENT_ID', "b2ebd80e-0dc7-46c5-bf23-d531e5411d6c");
 define('CLIENT_SECRET', "b2486e42-3a0a-4dbd-88e1-79af2d90eb3e");
 define('TECH_ACCOUNT_LOGIN', "TECH_000000000415049@cpp2017.fr");

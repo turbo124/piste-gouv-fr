@@ -7,7 +7,7 @@ use PisteGouvFr\Api\ChorusPro\Parameter\LignePosteSoumettreInput;
 
 class LignePosteSoumettreInputCollection implements \JsonSerializable {
 
-    private $LignePosteSoumettreInput_a;
+    private array $LignePosteSoumettreInput_a;
 
     public function __construct(LignePosteSoumettreInput ...$LignePosteSoumettreInput_a) {
         $this->LignePosteSoumettreInput_a = $LignePosteSoumettreInput_a;

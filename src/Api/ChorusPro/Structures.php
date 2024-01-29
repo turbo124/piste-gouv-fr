@@ -19,15 +19,15 @@ class Structures extends ChorusProApi {
     }
 
     /**
-     * @param int                                                                            $idStructure
+     * @param int                                                                             $idStructure
      * @param \PisteGouvFr\Api\ChorusPro\Parameter\ParametresRechercherServicesStructure|null $ParametresRechercherServicesStructure
      *
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRechercherServicesStructure
      * @throws \PisteGouvFr\PisteException
      */
-    public function rechercherServicesStructure(int $idStructure, ParametresRechercherServicesStructure $ParametresRechercherServicesStructure = null): WsRetour {
+    public function rechercherServicesStructure( int $idStructure, ParametresRechercherServicesStructure $ParametresRechercherServicesStructure = null ): WsRetour {
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/rechercher/services',
+            static::getBasePath() . '/v1/rechercher/services',
             [
                 'json' => [
                     'idStructure'                           => $idStructure,
@@ -40,16 +40,17 @@ class Structures extends ChorusProApi {
 
 
     /**
-     * @param \PisteGouvFr\Api\ChorusPro\Parameter\RechercherStructureInput      $RechercherStructureInput
-     * @param \PisteGouvFr\Api\ChorusPro\Parameter\ParametresRechercherStructure $ParametresRechercherStructure
-     * @param bool                                                               $restreindreStructuresPrivees
+     * @param \PisteGouvFr\Api\ChorusPro\Parameter\RechercherStructureInput           $RechercherStructureInput
+     * @param \PisteGouvFr\Api\ChorusPro\Parameter\ParametresRechercherStructure|null $ParametresRechercherStructure
+     * @param bool                                                                    $restreindreStructuresPrivees
      *
-     * @return array|\PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRechercherStructure
+     * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRechercherStructure
      * @throws \PisteGouvFr\PisteException
      */
-    public function rechercherStructure(RechercherStructureInput $RechercherStructureInput, ParametresRechercherStructure $ParametresRechercherStructure = null, bool $restreindreStructuresPrivees = false):WsRetourRechercherStructure {
-        return $this->ChorusPro->post(
-            static::getBasePath().'/v1/rechercher',
+    public function rechercherStructure( RechercherStructureInput $RechercherStructureInput, ParametresRechercherStructure $ParametresRechercherStructure = null, bool $restreindreStructuresPrivees = false ): WsRetourRechercherStructure {
+        /** @var WsRetourRechercherStructure $retour */
+        $retour = $this->ChorusPro->post(
+            static::getBasePath() . '/v1/rechercher',
             [
                 'json' => [
                     'structure'                    => $RechercherStructureInput,
@@ -59,5 +60,7 @@ class Structures extends ChorusProApi {
             ],
             WsRetourRechercherStructure::class
         );
+        return $retour;
+
     }
 }

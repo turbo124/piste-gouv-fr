@@ -25,10 +25,11 @@ class Transverses extends ChorusProApi {
      * @param string $syntax
      *
      * @return WsRetourConsulterCRDetaille
+     * @throws \PisteGouvFr\PisteException
      */
-    public function consulterCRDetaille(string $invoiceId, string $syntax = ISyntaxeFlux::IN_DP_E2_UBL_INVOICE_MIN): WsRetour {
+    public function consulterCRDetaille( string $invoiceId, string $syntax = ISyntaxeFlux::IN_DP_E2_UBL_INVOICE_MIN ): WsRetour {
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/consulterCRDetaille',
+            static::getBasePath() . '/v1/consulterCRDetaille',
             [
                 'json' => [
                     'numeroFluxDepot' => $invoiceId,
@@ -46,9 +47,9 @@ class Transverses extends ChorusProApi {
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRecupererCoordonneesBancairesValides
      * @throws \PisteGouvFr\PisteException
      */
-    public function recupererCoordonneesBancairesValides(int $idStructure): WsRetour {
+    public function recupererCoordonneesBancairesValides( int $idStructure ): WsRetour {
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/recuperer/coordbanc/valides',
+            static::getBasePath() . '/v1/recuperer/coordbanc/valides',
             [
                 'json' => [
                     'idStructure' => $idStructure,
@@ -65,9 +66,9 @@ class Transverses extends ChorusProApi {
      * @throws \PisteGouvFr\PisteException
      * @throws \Exception
      */
-    public function recupererStructuresPourUtilisateur(int $espaceFo = null): WsRetour {
+    public function recupererStructuresPourUtilisateur( int $espaceFo = null ): WsRetour {
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/recuperer/structuresPourUtilisateur',
+            static::getBasePath() . '/v1/recuperer/structuresPourUtilisateur',
             [
                 'json' => [
                     'espaceFo' => $espaceFo,
@@ -83,7 +84,7 @@ class Transverses extends ChorusProApi {
      */
     public function recupererStructuresActivesPourFournisseur(): WsRetour {
         return $this->ChorusPro->post(
-            static::getBasePath().'/v1/recuperer/structures/actives/fournisseur',
+            static::getBasePath() . '/v1/recuperer/structures/actives/fournisseur',
             [
                 'body' => '{}',
             ],
@@ -98,9 +99,9 @@ class Transverses extends ChorusProApi {
      * @return bool
      * @throws \PisteGouvFr\PisteException
      */
-    public function detacherPieceJointe(int $idPieceJointeObjet): bool {
+    public function detacherPieceJointe( int $idPieceJointeObjet ): bool {
         $this->ChorusPro->post(
-            static::getBasePath().'/v1/detacherPieceJointe',
+            static::getBasePath() . '/v1/detacherPieceJointe',
             [
                 'json' => [
                     'idPieceJointeObjet' => $idPieceJointeObjet,
@@ -120,19 +121,21 @@ class Transverses extends ChorusProApi {
      * @return WsRetourRechercherServiceExecutant
      * @throws \PisteGouvFr\PisteException
      */
-    public function rechercherServiceExecutant(int $idDestinataireCPP, string $codeServiceExecutant = null, string $nomServiceExecutant = null, bool $actif = null, ParametresRechercherServiceExecutant $ParametresRechercherServiceExecutant = null) {
-        return $this->ChorusPro->post(
-            static::getBasePath().'/v1/rechercher/serviceexecutant',
+    public function rechercherServiceExecutant( int $idDestinataireCPP, string $codeServiceExecutant = null, string $nomServiceExecutant = null, bool $actif = null, ParametresRechercherServiceExecutant $ParametresRechercherServiceExecutant = null ): WsRetourRechercherServiceExecutant {
+        /** @var WsRetourRechercherServiceExecutant $retour */
+        $retour = $this->ChorusPro->post(
+            static::getBasePath() . '/v1/rechercher/serviceexecutant',
             [
                 'json' => [
-                    'idDestinataireCPP' => $idDestinataireCPP,
+                    'idDestinataireCPP'    => $idDestinataireCPP,
                     'codeServiceExecutant' => $codeServiceExecutant,
-                    'nomServiceExecutant' => $nomServiceExecutant,
-                    'actif' => $actif,
-                    'parametresRecherche' => $ParametresRechercherServiceExecutant,
+                    'nomServiceExecutant'  => $nomServiceExecutant,
+                    'actif'                => $actif,
+                    'parametresRecherche'  => $ParametresRechercherServiceExecutant,
                 ],
             ],
             WsRetourRechercherServiceExecutant::class
         );
+        return $retour;
     }
 }

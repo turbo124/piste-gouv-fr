@@ -6,11 +6,11 @@ namespace PisteGouvFr\Api\ChorusPro\Parameter;
 class SoumettreFactureCadreDeFacturation implements \JsonSerializable {
 
     /** @var string */
-    private $codeCadreFacturation;
-    /** @var string */
-    private $codeStructureValideur;
-    /** @var string */
-    private $codeServiceValideur;
+    private string $codeCadreFacturation;
+    /** @var string|null */
+    private ?string $codeStructureValideur;
+    /** @var string|null */
+    private ?string $codeServiceValideur;
 
     /**
      * @param string $codeCadreFacturation @see ICodeCadreFacturation
