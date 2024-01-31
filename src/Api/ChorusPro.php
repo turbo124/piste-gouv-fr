@@ -25,6 +25,8 @@ class ChorusPro extends Piste {
 
 
     public function initClient(): void {
+//        var_dump(base64_encode($this->tech_username.':'.$this->tech_password));
+//        die();
         $this->client = new Client(
             [
                 'base_uri'        => static::getApiUrl($this->sandbox, $this->depuis_RIE),
@@ -40,10 +42,12 @@ class ChorusPro extends Piste {
     }
 
     /**
-     * @param       $uri
-     * @param array $options
+     * @param             $uri
+     * @param array       $options
+     * @param string|null $classe_objet_en_retour
      *
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetour|array
+     * @throws \PisteGouvFr\PisteException
      */
     public function post($uri, array $options = [], string $classe_objet_en_retour = null) {
         if (null !== $classe_objet_en_retour && !class_exists($classe_objet_en_retour)) {
@@ -67,6 +71,46 @@ class ChorusPro extends Piste {
             throw new \Exception('json_decode exception');
         }
         if ($data['codeRetour'] !== 0) {
+            throw new PisteException($data['libelle']);
+        }
+
+//        var_dump($classe_objet_en_retour);
+
+        return (null !== $classe_objet_en_retour) ? new $classe_objet_en_retour($data) : $data;
+    }
+
+    /**
+     * @param             $uri
+     * @param array       $options
+     * @param string|null $classe_objet_en_retour
+     *
+     * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetour|array
+     * @throws \PisteGouvFr\PisteException
+     */
+    public function get($uri, array $options = [], string $classe_objet_en_retour = null) {
+        if (null !== $classe_objet_en_retour && !class_exists($classe_objet_en_retour)) {
+            throw new PisteException('La classe fourni en parametre de la methode '.__FUNCTION__.' de la classe '.__CLASS__.' n\'existe pas !');
+        }
+
+        try {
+            $request = $this->Client()
+                            ->get( $uri, $options );
+        }
+        catch (ClientException $CE) {
+            throw $CE;
+//            var_dump((string)$CE->getResponse()->getBody()->getContents());
+//            die();
+        }
+        $response = $request->getBody()
+                            ->getContents();
+//        var_dump($response);
+        $data     = json_decode($response, true);
+
+        if (null === $data) {
+            throw new \Exception('json_decode exception');
+        }
+
+        if ( array_key_exists('codeRetour',$data) && $data['codeRetour'] !== 0) {
             throw new PisteException($data['libelle']);
         }
 
