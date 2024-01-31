@@ -33,19 +33,19 @@ class RechercherStructureInput implements \JsonSerializable {
     private ?bool $estMOAUniquement;
 
     /**
-     * @param string                                                           $raisonSocialeStructure
-     * @param string                                                           $identifiantStructure
-     * @param \PisteGouvFr\Api\ChorusPro\Type\ITypeIdentifiantStructure|string $typeIdentifiantStructure
-     * @param string                                                           $libelleStructure
-     * @param string                                                           $nomStructure
-     * @param string                                                           $prenomStructure
-     * @param string                                                           $adresseCodePostal
-     * @param string                                                           $adresseVille
-     * @param string                                                           $adresseCodePays
-     * @param \PisteGouvFr\Api\ChorusPro\Type\IStatutStructure|string          $typeStructure
-     * @param \PisteGouvFr\Api\ChorusPro\Type\IStatutStructure|string          $statutStructure
-     * @param bool                                                             $estMOA
-     * @param bool                                                             $estMOAUniquement
+     * @param string|null $raisonSocialeStructure
+     * @param string|null $identifiantStructure
+     * @param null        $typeIdentifiantStructure
+     * @param string|null $libelleStructure
+     * @param string|null $nomStructure
+     * @param string|null $prenomStructure
+     * @param string|null $adresseCodePostal
+     * @param string|null $adresseVille
+     * @param string|null $adresseCodePays
+     * @param null        $typeStructure
+     * @param null        $statutStructure
+     * @param bool        $estMOA
+     * @param bool        $estMOAUniquement
      */
     public function __construct( string $raisonSocialeStructure = null, string $identifiantStructure = null, $typeIdentifiantStructure = null, string $libelleStructure = null, string $nomStructure = null, string $prenomStructure = null, string $adresseCodePostal = null, string $adresseVille = null, string $adresseCodePays = null, $typeStructure = null, $statutStructure = null, bool $estMOA = null, bool $estMOAUniquement = null ) {
         $this->raisonSocialeStructure   = $raisonSocialeStructure;

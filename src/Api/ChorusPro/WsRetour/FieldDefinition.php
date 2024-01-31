@@ -18,8 +18,8 @@ class FieldDefinition {
     const TYPE_BOOLEAN         = 'boolean';
 
 
-    /** @var string */
-    private string $label;
+    /** @var string|null */
+    private ?string $label;
     /** @var string */
     private string $type;
     /** @var bool */
@@ -30,13 +30,13 @@ class FieldDefinition {
     private ?string $nomDeClasse;
 
     /**
-     * @param string      $label
+     * @param string|null      $label
      * @param string      $type
      * @param bool        $requis
      * @param array|null  $enumValues
      * @param string|null $nomDeClasse
      */
-    public function __construct( string $label, string $type, bool $requis = false, array $enumValues = null, string $nomDeClasse = null ) {
+    public function __construct( ?string $label, string $type, bool $requis = false, array $enumValues = null, string $nomDeClasse = null ) {
         $this->label       = $label;
         $this->type        = $type;
         $this->requis      = $requis;
@@ -48,7 +48,7 @@ class FieldDefinition {
      * @return string
      */
     public function label(): string {
-        return $this->label;
+        return $this->label ?? 'values';
     }
 
 
@@ -56,14 +56,14 @@ class FieldDefinition {
      * @throws \PisteGouvFr\PisteException
      */
     public function castFromWsReturnArray( array $wsReturnArray ) {
-        if ( !array_key_exists( $this->label, $wsReturnArray ) ) {
+        if ( null !== $this->label && !array_key_exists( $this->label, $wsReturnArray ) ) {
             if ( true === $this->requis ) {
                 throw new PisteException( 'Aucune valeur retournée pour le champ "' . $this->label . '". Celui-ci est requis.' );
             }
             return null;
         }
 
-        $value = $wsReturnArray[ $this->label ];
+        $value = null === $this->label ? $wsReturnArray : $wsReturnArray[ $this->label ];
 
         switch ( $this->type ) {
             case static::TYPE_OBJECT :
@@ -93,6 +93,9 @@ class FieldDefinition {
             case static::TYPE_STRING_DATETIME:
                 foreach ( [
                               'Y-m-d\TH:i:s.vp',
+                              'X-m-d\TH:i:sP',
+                              'X-m-d\TH:i:sp',
+                              'Y-m-d\TH:i:sO',
                               'Y-m-d H:i',
                               'Y-m-d',
                           ] as $date_format_possible ) {
@@ -106,12 +109,12 @@ class FieldDefinition {
                     $value = $value_tmp;
                     break 2;
                 }
-                throw new PisteException( 'Aucun format de date compatible avec la valeur retournée dans le champ "' . $this->label . '".' );
+                throw new PisteException( 'Aucun format de date compatible avec la valeur retournée dans le champ "' . $this->label ?? '<root>' . '".' );
         }
 
         if ( null !== $this->enumValues ) {
             if ( !in_array( $value, $this->enumValues ) ) {
-                throw new PisteException( 'Valeur retournée pour le champ "' . $this->label . '" non reconnue.' );
+                throw new PisteException( 'Valeur retournée pour le champ "' . $this->label ?? '<root>' . '" non reconnue.' );
             }
         }
         return $value;

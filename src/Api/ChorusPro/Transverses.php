@@ -32,6 +32,19 @@ class Transverses extends ChorusProApi {
     }
 
     /**
+     * @return array
+     * @throws \PisteGouvFr\PisteException
+     */
+    public function healthCheck() {
+        return $this->ChorusPro->get(
+            static::getBasePath() . '/v1/health-check',
+            [
+                'json' => [],
+            ]
+        );
+    }
+
+    /**
      *
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourRecupererFormatFlux
      * @throws \PisteGouvFr\PisteException
@@ -191,6 +204,15 @@ class Transverses extends ChorusProApi {
         throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
     }
 
+    /**
+     * @return mixed
+     * @throws \PisteGouvFr\PisteException
+     * @deprecated A été déprécié avant l'implémentation.
+     */
+    public function recupererServicesExecutantEtat() {
+        throw new PisteException( __FUNCTION__ . ' est dépréciée.' );
+    }
+
     public function recupererEtatParTypeDemandePaiement() {
         // TODO : Implementer cette methode
         throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
@@ -233,18 +255,7 @@ class Transverses extends ChorusProApi {
         throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
     }
 
-    /**
-     * @return array
-     * @throws \PisteGouvFr\PisteException
-     */
-    public function healthCheck() {
-        return $this->ChorusPro->get(
-            static::getBasePath() . '/v1/health-check',
-            [
-                'json' => [],
-            ]
-        );
-    }
+
 
     public function recupererStructuresActivesPourFacturesTravaux() {
         // TODO : Implementer cette methode
@@ -258,6 +269,7 @@ class Transverses extends ChorusProApi {
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourStructuresPourUtilisateur
      * @throws \PisteGouvFr\PisteException
      * @throws \Exception
+     * @deprecated
      */
     public function recupererStructuresPourUtilisateur( int $espaceFo = null ): WsRetour {
         return $this->ChorusPro->post(
@@ -391,6 +403,7 @@ class Transverses extends ChorusProApi {
      *
      * @return WsRetourRechercherServiceExecutant
      * @throws \PisteGouvFr\PisteException
+     * @deprecated
      */
     public function rechercherServiceExecutant( int $idDestinataireCPP, string $codeServiceExecutant = null, string $nomServiceExecutant = null, bool $actif = null, ParametresRechercherServiceExecutant $ParametresRechercherServiceExecutant = null ): WsRetourRechercherServiceExecutant {
         /** @var WsRetourRechercherServiceExecutant $retour */
@@ -425,6 +438,7 @@ class Transverses extends ChorusProApi {
      *
      * @return bool
      * @throws \PisteGouvFr\PisteException
+     * @deprecated
      */
     public function detacherPieceJointe( int $idPieceJointeObjet ): bool {
         $this->ChorusPro->post(

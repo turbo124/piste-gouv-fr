@@ -6,14 +6,13 @@ include( dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARAT
 
 use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourDeposerPdfFacture;
 
-
 // Identifiant Sand Box pour effectuer des tests (oath user).
 define( 'CLIENT_ID', "90ba7443-de30-4fc1-9b57-c413f5fc0fbc" );
-define( 'CLIENT_SECRET', "456aabcd-7861-4077-93d6-f39ec3b10499");
+define( 'CLIENT_SECRET', "456aabcd-7861-4077-93d6-f39ec3b10499" );
 define( 'TECH_ACCOUNT_LOGIN', "TECH_1_73442027438548@cpro.fr" );
 define( 'TECH_ACCOUNT_PASSWORD', "lckCvx0mqyds_" );
-define( 'CHORUSPRO_IDENTIFIANT_STRUCTURE', "73442027438548" );                // Compte > Modification de la structure > Identifiant*
-define( 'CHORUSPRO_IBAN_LABEL', "IBAN SANDBOX" );                             // Compte > Modification de la structure > Identifiant*
+define( 'CHORUSPRO_IDENTIFIANT_STRUCTURE', "73442027438548" );                   // Compte > Modification de la structure > Identifiant*
+define( 'CHORUSPRO_IBAN_LABEL', "IBAN SANDBOX" );                                // Compte > Modification de la structure > Identifiant*
 define( 'CHORUSPRO_CODESERVICE_FOURNISSEUR', "SERVICE_PRIVE_1_93125027408770" ); // Compte > Modification de la structure > Identifiant*
 
 //define( 'TECH_ACCOUNT_LOGIN', "TECH_1_73442027438548@cpro.fr" );
@@ -40,14 +39,11 @@ function deposerFactureEtSoumettre() {
 
     $ChorusPro = new \PisteGouvFr\Api\ChorusPro( CLIENT_ID, CLIENT_SECRET, TECH_ACCOUNT_LOGIN, TECH_ACCOUNT_PASSWORD, true );
 //    die();
-    $Transverses = new \PisteGouvFr\Api\ChorusPro\Transverses( $ChorusPro );
-    $Structures  = new \PisteGouvFr\Api\ChorusPro\Structures( $ChorusPro );
-    $Factures    = new \PisteGouvFr\Api\ChorusPro\Factures( $ChorusPro );
+    $Transverses                 = new \PisteGouvFr\Api\ChorusPro\Transverses( $ChorusPro );
+    $Structures                  = new \PisteGouvFr\Api\ChorusPro\Structures( $ChorusPro );
+    $Factures                    = new \PisteGouvFr\Api\ChorusPro\Factures( $ChorusPro );
+    $ReferentielDesOrganisations = new \PisteGouvFr\Api\ChorusPro\ReferentielDesOrganisations( $ChorusPro );
 
-//    var_dump($Transverses->healthCheck());
-    var_dump($Transverses->recupererPays());
-//    var_dump($Transverses->recupererDevise());
-    die();
     $recupererStructureResult = $Transverses->recupererStructuresPourUtilisateur();
 
     if ( empty( $recupererStructureResult->listeStructures ) ) {

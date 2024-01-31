@@ -118,4 +118,31 @@ class ChorusPro extends Piste {
 
         return (null !== $classe_objet_en_retour) ? new $classe_objet_en_retour($data) : $data;
     }
+
+    /**
+     * @param             $uri
+     * @param array       $options
+     * @param int         $status_code_ok
+     *
+     * @return bool|array
+     * @throws \Exception
+     */
+    public function patch($uri, array $options = [], int $status_code_ok = 204): bool|array {
+        $request = $this->Client()
+                        ->patch( $uri, $options );
+
+        if ($status_code_ok === $request->getStatusCode()) {
+            return true;
+        }
+
+        $response = $request->getBody()->getContents();
+        $data     = json_decode($response, true);
+
+        if (null === $data) {
+            throw new \Exception('json_decode exception');
+        }
+
+
+        return $data;
+    }
 }

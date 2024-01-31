@@ -27,7 +27,7 @@ abstract class Type implements \JsonSerializable {
     }
 
     public final static function values(): array {
-        return array_keys( ( new \ReflectionClass( static::class ) )->getConstants() );
+        return array_values( ( new \ReflectionClass( static::class ) )->getConstants() );
     }
 
 }
