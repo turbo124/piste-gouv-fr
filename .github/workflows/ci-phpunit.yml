@@ -6,12 +6,18 @@ jobs:
   ci-phpunit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.1.2"
+          extensions: curl zlib intl ctype phar pcov xdebug pcntl libxml xml soap posix mbstring dom tokenizer xmlwriter json zip
+          coverage: "pcov"
       - uses: php-actions/composer@v6
       - name: PHPUnit Tests
         uses: php-actions/phpunit@master
         with:
           bootstrap: vendor/autoload.php
           configuration: tests/phpunit.xml
-          php_extensions: curl zlib intl ctype phar pcov xdebug pcntl libxml xml soap posix mbstring dom tokenizer xmlwriter json zip
+#          php_extensions: curl zlib intl ctype phar pcov xdebug pcntl libxml xml soap posix mbstring dom tokenizer xmlwriter json zip
           args: --testdox
