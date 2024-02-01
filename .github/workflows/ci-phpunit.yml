@@ -13,4 +13,5 @@ jobs:
         with:
           bootstrap: vendor/autoload.php
           configuration: tests/phpunit.xml
+          php_extensions: ext-curl ext-zlib ext-intl ext-ctype ext-phar ext-pcov ext-xdebug ext-pcntl ext-libxml ext-xml ext-soap ext-posix ext-mbstring ext-dom ext-tokenizer ext-xmlwriter ext-json ext-zip
           args: --testdox
