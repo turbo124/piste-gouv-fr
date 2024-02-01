@@ -11,7 +11,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "8.1.2"
-          extensions: ext-curl ext-zlib ext-intl ext-ctype ext-phar ext-pcov ext-xdebug ext-pcntl ext-libxml ext-xml ext-soap ext-posix ext-mbstring ext-dom ext-tokenizer ext-xmlwriter ext-json ext-zip
+          extensions: curl , zlib , intl , ctype , phar , pcov , xdebug , pcntl , libxml , xml , soap , posix , mbstring , dom , tokenizer , xmlwriter , json , zip
           coverage: "pcov"
       - uses: php-actions/composer@v6
       - name: PHPUnit Tests
