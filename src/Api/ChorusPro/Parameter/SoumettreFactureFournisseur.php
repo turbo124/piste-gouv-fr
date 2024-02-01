@@ -6,11 +6,11 @@ namespace PisteGouvFr\Api\ChorusPro\Parameter;
 class SoumettreFactureFournisseur implements \JsonSerializable {
 
     /** @var int */
-    private $idFournisseur;
+    private int $idFournisseur;
     /** @var int */
-    private $idServiceFournisseur;
+    private int $idServiceFournisseur;
     /** @var int */
-    private $codeCoordonneesBancairesFournisseur;
+    private int $codeCoordonneesBancairesFournisseur;
 
     /**
      * @param int $idFournisseur
@@ -24,7 +24,7 @@ class SoumettreFactureFournisseur implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'idFournisseur'                       => $this->idFournisseur,
             'idServiceFournisseur'                => $this->idServiceFournisseur,

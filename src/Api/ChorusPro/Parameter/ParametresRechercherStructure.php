@@ -14,22 +14,22 @@ class ParametresRechercherStructure implements \JsonSerializable {
     const TRICOLONNE_STATUT                   = 'Statut';
 
 
-    /** @car int|null */
-    private $pageResultatDemandee;
-    /** @car int|null */
-    private $nbResultatsParPage;
-    /** @car string|null */
-    private $triSens;
-    /** @car string|null */
-    private $triColonne;
+    /** @car int */
+    private int $pageResultatDemandee;
+    /** @car int */
+    private int $nbResultatsParPage;
+    /** @car string */
+    private string $triSens;
+    /** @car string */
+    private string $triColonne;
     /** @car  array */
-    private $champsDeTri;
-    /** @car string|null */
-    private $ordreTriGenerique;
-    /** @car int|null */
-    private $taillePageGenerique;
-    /** @car int|null */
-    private $indexPageGenerique;
+    private array $champsDeTri;
+    /** @car string */
+    private string $ordreTriGenerique;
+    /** @car int */
+    private int $taillePageGenerique;
+    /** @car int */
+    private int $indexPageGenerique;
 
     /**
      * @param int    $pageResultatDemandee
@@ -53,7 +53,7 @@ class ParametresRechercherStructure implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return array_filter([
                                 'pageResultatDemandee' => $this->pageResultatDemandee,
                                 'nbResultatsParPage'   => $this->nbResultatsParPage,

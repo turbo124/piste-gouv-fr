@@ -5,49 +5,49 @@ namespace PisteGouvFr\Api\ChorusPro\Parameter;
 
 class RechercherStructureInput implements \JsonSerializable {
 
-    /** @var    string */
-    private $raisonSocialeStructure;
-    /** @var    string */
-    private $identifiantStructure;
-    /** @var    string|\PisteGouvFr\Api\ChorusPro\Type\ITypeIdentifiantStructure */
-    private $typeIdentifiantStructure;
-    /** @var    string */
-    private $libelleStructure;
-    /** @var    string */
-    private $nomStructure;
-    /** @var    string */
-    private $prenomStructure;
-    /** @var    string */
-    private $adresseCodePostal;
-    /** @var    string */
-    private $adresseVille;
-    /** @var    string */
-    private $adresseCodePays;
-    /** @var    string|\PisteGouvFr\Api\ChorusPro\Type\IStatutStructure */
-    private $typeStructure;
-    /** @var    string|\PisteGouvFr\Api\ChorusPro\Type\IStatutStructure */
-    private $statutStructure;
-    /** @var    bool */
-    private $estMOA;
-    /** @var    bool */
-    private $estMOAUniquement;
+    /** @var    null|string */
+    private ?string $raisonSocialeStructure;
+    /** @var    null|string */
+    private ?string $identifiantStructure;
+    /** @var    null|string|\PisteGouvFr\Api\ChorusPro\Type\ITypeIdentifiantStructure */
+    private string|null $typeIdentifiantStructure;
+    /** @var    null|string */
+    private ?string $libelleStructure;
+    /** @var    null|string */
+    private ?string $nomStructure;
+    /** @var    null|string */
+    private ?string $prenomStructure;
+    /** @var    null|string */
+    private ?string $adresseCodePostal;
+    /** @var    null|string */
+    private ?string $adresseVille;
+    /** @var    null|string */
+    private ?string $adresseCodePays;
+    /** @var    null|string|\PisteGouvFr\Api\ChorusPro\Type\IStatutStructure */
+    private string|null $typeStructure;
+    /** @var    null|string|\PisteGouvFr\Api\ChorusPro\Type\IStatutStructure */
+    private string|null $statutStructure;
+    /** @var    null|bool */
+    private ?bool $estMOA;
+    /** @var    null|bool */
+    private ?bool $estMOAUniquement;
 
     /**
-     * @param string                                                           $raisonSocialeStructure
-     * @param string                                                           $identifiantStructure
-     * @param \PisteGouvFr\Api\ChorusPro\Type\ITypeIdentifiantStructure|string $typeIdentifiantStructure
-     * @param string                                                           $libelleStructure
-     * @param string                                                           $nomStructure
-     * @param string                                                           $prenomStructure
-     * @param string                                                           $adresseCodePostal
-     * @param string                                                           $adresseVille
-     * @param string                                                           $adresseCodePays
-     * @param \PisteGouvFr\Api\ChorusPro\Type\IStatutStructure|string          $typeStructure
-     * @param \PisteGouvFr\Api\ChorusPro\Type\IStatutStructure|string          $statutStructure
-     * @param bool                                                             $estMOA
-     * @param bool                                                             $estMOAUniquement
+     * @param string|null $raisonSocialeStructure
+     * @param string|null $identifiantStructure
+     * @param null        $typeIdentifiantStructure
+     * @param string|null $libelleStructure
+     * @param string|null $nomStructure
+     * @param string|null $prenomStructure
+     * @param string|null $adresseCodePostal
+     * @param string|null $adresseVille
+     * @param string|null $adresseCodePays
+     * @param null        $typeStructure
+     * @param null        $statutStructure
+     * @param bool        $estMOA
+     * @param bool        $estMOAUniquement
      */
-    public function __construct(string $raisonSocialeStructure = null, string $identifiantStructure = null, $typeIdentifiantStructure = null, string $libelleStructure = null, string $nomStructure = null, string $prenomStructure = null, string $adresseCodePostal = null, string $adresseVille = null, string $adresseCodePays = null, $typeStructure = null, $statutStructure = null, bool $estMOA = null, bool $estMOAUniquement = null) {
+    public function __construct( string $raisonSocialeStructure = null, string $identifiantStructure = null, $typeIdentifiantStructure = null, string $libelleStructure = null, string $nomStructure = null, string $prenomStructure = null, string $adresseCodePostal = null, string $adresseVille = null, string $adresseCodePays = null, $typeStructure = null, $statutStructure = null, bool $estMOA = null, bool $estMOAUniquement = null ) {
         $this->raisonSocialeStructure   = $raisonSocialeStructure;
         $this->identifiantStructure     = $identifiantStructure;
         $this->typeIdentifiantStructure = $typeIdentifiantStructure;
@@ -64,21 +64,21 @@ class RechercherStructureInput implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
-        return array_filter([
-                                'raisonSocialeStructure'   => $this->raisonSocialeStructure,
-                                'identifiantStructure'     => $this->identifiantStructure,
-                                'typeIdentifiantStructure' => $this->typeIdentifiantStructure,
-                                'libelleStructure'         => $this->libelleStructure,
-                                'nomStructure'             => $this->nomStructure,
-                                'prenomStructure'          => $this->prenomStructure,
-                                'adresseCodePostal'        => $this->adresseCodePostal,
-                                'adresseVille'             => $this->adresseVille,
-                                'adresseCodePays'          => $this->adresseCodePays,
-                                'typeStructure'            => $this->typeStructure,
-                                'statutStructure'          => $this->statutStructure,
-                                'estMOA'                   => $this->estMOA,
-                                'estMOAUniquement'         => $this->estMOAUniquement,
-                            ], function($v) { return !is_null($v); });
+    public function jsonSerialize(): mixed {
+        return array_filter( [
+                                 'raisonSocialeStructure'   => $this->raisonSocialeStructure,
+                                 'identifiantStructure'     => $this->identifiantStructure,
+                                 'typeIdentifiantStructure' => $this->typeIdentifiantStructure,
+                                 'libelleStructure'         => $this->libelleStructure,
+                                 'nomStructure'             => $this->nomStructure,
+                                 'prenomStructure'          => $this->prenomStructure,
+                                 'adresseCodePostal'        => $this->adresseCodePostal,
+                                 'adresseVille'             => $this->adresseVille,
+                                 'adresseCodePays'          => $this->adresseCodePays,
+                                 'typeStructure'            => $this->typeStructure,
+                                 'statutStructure'          => $this->statutStructure,
+                                 'estMOA'                   => $this->estMOA,
+                                 'estMOAUniquement'         => $this->estMOAUniquement,
+                             ], function ( $v ) { return !is_null( $v ); } );
     }
 }

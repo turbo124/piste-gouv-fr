@@ -1,6 +1,6 @@
 {
   "name": "zmog/piste-gouv-fr",
-  "description": "Package PHP gerer les appels aux API REST accessible via le site piste.gouv.fr",
+  "description": "Package PHP pour gerer les appels aux API REST accessibles via le site piste.gouv.fr",
   "type": "library",
   "authors": [
     {
@@ -18,13 +18,14 @@
   "prefer-stable": true,
   "license": "MIT",
   "require": {
-    "php": ">= 7.0",
+    "php": ">= 8.0",
     "guzzlehttp/guzzle": "^6.5",
     "ext-json": "*",
     "ext-zip": "*"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master"
+    "roave/security-advisories": "dev-master",
+    "phpunit/phpunit": "^10"
   },
   "autoload": {
     "psr-4": {

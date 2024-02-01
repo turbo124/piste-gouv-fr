@@ -6,15 +6,15 @@ namespace PisteGouvFr\Api\ChorusPro\Parameter;
 class PieceJointeComplentaireSoumettreInput implements \JsonSerializable {
 
     /** @var    string */
-    private $pieceJointeComplementaireDesignation;
+    private string $pieceJointeComplementaireDesignation;
     /** @var    string */
-    private $pieceJointeComplementaireType;
+    private string $pieceJointeComplementaireType;
     /** @var    int */
-    private $pieceJointeComplementaireNumeroLigneFacture;
+    private int $pieceJointeComplementaireNumeroLigneFacture;
     /** @var    int */
-    private $pieceJointeComplementaireId;
+    private int $pieceJointeComplementaireId;
     /** @var    int */
-    private $pieceJointeComplementaireIdLiaison;
+    private int $pieceJointeComplementaireIdLiaison;
 
     /**
      * @param string $pieceJointeComplementaireDesignation
@@ -32,7 +32,7 @@ class PieceJointeComplentaireSoumettreInput implements \JsonSerializable {
     }
 
 
-    public function jsonSerialize(): array {
+    public function jsonSerialize(): mixed {
         return [
             'pieceJointeComplementaireDesignation'        => $this->pieceJointeComplementaireDesignation,
             'pieceJointeComplementaireType'               => $this->pieceJointeComplementaireType,

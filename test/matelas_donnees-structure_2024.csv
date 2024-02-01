@@ -1,0 +1,54 @@
+Entite;Libelle;Valeur
+MOE;SIRET Structure;64994699139861
+Destinataire 2;SIRET Structure;71299773521027
+MOA;SIRET Structure;62101060702436
+Destinataire;SIRET Structure;98125730567914
+Valideur;SIRET Structure;73442027438548
+Fournisseur;SIRET Structure;93125027408770
+Valideur;Code du service;SERVICE_PRIVE_1_73442027438548
+Destinataire 2;Code du service;Acheteur
+Destinataire;Code du service;Acheteur
+MOA;Code du service;Acheteur
+Destinataire;Code du service;SERVICE_PUBLIQUE_1_98125730567914
+MOE;Code du service;SERVICE_PRIVE_1_64994699139861
+Fournisseur;Code du service;SERVICE_PRIVE_1_93125027408770
+MOA;Code du service;SERVICE_PUBLIQUE_1_62101060702436
+Destinataire 2;Code du service;SERVICE_PUBLIQUE_1_71299773521027
+Destinataire;Login compte GP;GEST_PUBLIQUE_1_98125730567914@cpro.fr
+Destinataire;Mot de passe Compte GP;loi2lTolqx(ni
+MOE;Login compte GP;GEST_PRIVE_1_64994699139861@cpro.fr
+MOE;Mot de passe Compte GP;yo[ur4jjpiuCm
+Valideur;Login compte GP;GEST_PRIVE_1_73442027438548@cpro.fr
+Valideur;Mot de passe Compte GP;h)2tufponiNav
+Destinataire 2;Login compte GP;GEST_PUBLIQUE_1_71299773521027@cpro.fr
+Destinataire 2;Mot de passe Compte GP;ibttQrm1cw@oe
+Fournisseur;Login compte GP;GEST_PRIVE_1_93125027408770@cpro.fr
+Fournisseur;Mot de passe Compte GP;ebdrfdh0~Elwi
+MOA;Login compte GP;GEST_PUBLIQUE_1_62101060702436@cpro.fr
+MOA;Mot de passe Compte GP;tc(e4jopqSruw
+Fournisseur;Login compte US;USER_PRIVE_1_93125027408770@cpro.fr
+Fournisseur;Mot de passe Compte US;ahqIeevu5)nej
+Label_Acheteur_62101060702436;Login compte US;USER_PUBLIQUE_ACHETEUR_1_62101060702436@cpro.fr
+Label_Acheteur_62101060702436;Mot de passe Compte US;ysfrny6ix@Ecy
+Label_Acheteur_98125730567914;Login compte US;USER_PUBLIQUE_ACHETEUR_1_98125730567914@cpro.fr
+Label_Acheteur_98125730567914;Mot de passe Compte US;grVluozlnv[x8
+Valideur;Login compte US;USER_PRIVE_1_73442027438548@cpro.fr
+Valideur;Mot de passe Compte US;ekclouwyX8$li
+Label_Acheteur_71299773521027;Login compte US;USER_PUBLIQUE_ACHETEUR_1_71299773521027@cpro.fr
+Label_Acheteur_71299773521027;Mot de passe Compte US;jlymthgWm8fw@
+MOE;Login compte US;USER_PRIVE_1_64994699139861@cpro.fr
+MOE;Mot de passe Compte US;vy9becKezlwj>
+Destinataire 2;Login compte US;USER_PUBLIQUE_1_71299773521027@cpro.fr
+Destinataire 2;Mot de passe Compte US;wckoj)xRw7zyj
+MOA;Login compte US;USER_PUBLIQUE_1_62101060702436@cpro.fr
+MOA;Mot de passe Compte US;jsvbejjsR%b6n
+Destinataire;Login compte US;USER_PUBLIQUE_1_98125730567914@cpro.fr
+Destinataire;Mot de passe Compte US;ogz!8pnbrfyvO
+Destinataire Etat;SIRET Structure;11000201100044
+Destinataire avec service obligatoire;SIRET Structure;12345678200028
+Destinataire avec EJ obligatoire;SIRET Structure;12345678200036
+Destinataire avec EJ ou service obligatoire;SIRET Structure;12345678200044
+Destinataire sans paramètre;SIRET Structure;12345678200051
+Destinataire avec EJ ou service obligatoire;Code du service;SERVICE_DEST_EJ_OU_SERV_OBL
+Destinataire avec service obligatoire;Code du service;SERVICE_DEST_SERV_OBL
+Destinataire Etat;Code du service;SFACETAT
