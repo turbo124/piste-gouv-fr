@@ -15,7 +15,7 @@ Package afin d'effectuer des appels aux API REST de la platforme piste.gouv.fr
 
 Merci à [SBordier44 (Sylvain Bordier)](https://github.com/SBordier44) d'avoir initié le travail.
 
-# Installation 
+# Installation
 
 ```shell
 composer require zmog/piste-gouv-fr
@@ -26,10 +26,10 @@ composer require zmog/piste-gouv-fr
 Au début je n'ai implémenté que les methodes dont j'avais besoin, puis j'ai commencé à étoffer les méthodes. Les
 contributions sont les bienvenues pour quiconque souhaiterait ajouter ou implementer des API ou des méthodes.
 
-| API Couvertes                            | MethodeCouverte / MethodesTotales |
-|------------------------------------------|----------------------------------:|
-| Chorus Pro : Factures                    |                      4 / 22 (18%) |
-| Chorus Pro : ReferentielDesOrganisations |                      9 / 10 (90%) |
-| Chorus Pro : Structures                  |                       2 / 6 (33%) |
-| Chorus Pro : Transverses                 |                      5 / 37 (14%) |
+| API Couvertes                            |        MethodeCouverte / MethodesTotales |
+|------------------------------------------|-----------------------------------------:|
+| Chorus Pro : Factures                    | 4 / 22 ![](https://geps.dev/progress/18) |
+| Chorus Pro : ReferentielDesOrganisations | 9 / 10 ![](https://geps.dev/progress/90) |
+| Chorus Pro : Structures                  |  2 / 6 ![](https://geps.dev/progress/33) |
+| Chorus Pro : Transverses                 | 5 / 37 ![](https://geps.dev/progress/14) |
 
