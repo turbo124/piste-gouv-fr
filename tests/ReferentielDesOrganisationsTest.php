@@ -18,7 +18,7 @@ final class ReferentielDesOrganisationsTest extends TestCase {
      * @return void
      */
     public function testBasePath(): void {
-        $this->assertEquals('/cpro/organisations/v1', ReferentielDesOrganisations::getBasePath(), 'Le base path de la classe Transverse n\'est pas correct' );
+        $this->assertEquals( '/cpro/organisations/v1', ReferentielDesOrganisations::getBasePath(), 'Le base path de la classe Transverse n\'est pas correct' );
     }
 
     /**
@@ -56,7 +56,7 @@ final class ReferentielDesOrganisationsTest extends TestCase {
             $Api->healthCheck();
         }
         catch ( ClientException $e ) {
-            $this->assertEquals( 401,$e->getCode(), 'Le status code de la requete doit être 401 en cas de mauvais credential ( tech account password ) ' );
+            $this->assertEquals( 401, $e->getCode(), 'Le status code de la requete doit être 401 en cas de mauvais credential ( tech account password ) ' );
         }
 
     }
@@ -89,27 +89,27 @@ final class ReferentielDesOrganisationsTest extends TestCase {
 
     public function testRecupererPieceJointeStructure(): void {
         // TODO : Ecrire le test
-        $this->assertTrue(true);
+        $this->assertTrue( true );
     }
 
     public function testRechercherServicesStructure(): void {
         // TODO : Ecrire le test
-        $this->assertTrue(true);
+        $this->assertTrue( true );
     }
 
     public function testConsulterStructure(): void {
         // TODO : Ecrire le test
-        $this->assertTrue(true);
+        $this->assertTrue( true );
     }
 
     public function testListerPiecesJointesStructure(): void {
         // TODO : Ecrire le test
-        $this->assertTrue(true);
+        $this->assertTrue( true );
     }
 
     public function testModifierStructure(): void {
         // TODO : Ecrire le test
-        $this->assertTrue(true);
+        $this->assertTrue( true );
     }
 
     /**
@@ -118,23 +118,27 @@ final class ReferentielDesOrganisationsTest extends TestCase {
     public function testRechercherStructures(): void {
         $WsRetourRechercherStructures = $this->getApi()->rechercherStructures(
             ( new StructureRechercheRequete() )
-                ->filtrerParTypeIdentifiant(
-                    new RechercheFieldString( '=', CHORUSPRO_IDENTIFIANT_TYPE )
-                )
-                ->filtrerParIdentifiant(
-                    new RechercheFieldString( '=', CHORUSPRO_IDENTIFIANT_STRUCTURE )
-                )
+//                ->filtrerParTypeIdentifiant(
+//                    new RechercheFieldString( '=', CHORUSPRO_IDENTIFIANT_TYPE )
+//                )
+//                ->filtrerParIdentifiant(
+//                    new RechercheFieldString( '=', '71299773521027' )
+//                    new RechercheFieldString( '=', CHORUSPRO_IDENTIFIANT_STRUCTURE )
+//                )
+//                ->filtrerParTypeIdentifiant( new RechercheFieldString( '=', 'SIRET' ) )
+                ->filtrerParPays( new RechercheFieldString( '=', 'France' ) )
+                ->setFields( ...StructureRechercheRequete::availableFields() )
         );
         $this->assertNotCount( 0, $WsRetourRechercherStructures->values, 'Aucune structure trouvée' );
     }
 
     public function testConsulterService(): void {
         // TODO : Ecrire le test
-        $this->assertTrue(true);
+        $this->assertTrue( true );
     }
 
     public function testRechercherServiceOrganisation(): void {
         // TODO : Ecrire le test
-        $this->assertTrue(true);
+        $this->assertTrue( true );
     }
 }

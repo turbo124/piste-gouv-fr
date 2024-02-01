@@ -12,7 +12,7 @@ abstract class RechercheRequete implements \JsonSerializable {
     protected array $_descs   = [];
     protected array $_fields  = [];
 
-    public final function jsonSerialize() {
+    public final function jsonSerialize() : mixed {
         return array_merge( $this->_filters, [ '_sort'   => $this->_sorts,
                                                '_desc'   => $this->_descs,
                                                '_fields' => $this->_fields ] );
