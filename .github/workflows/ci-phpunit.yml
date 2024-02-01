@@ -1,6 +1,6 @@
 name: CI PHPUnit
 
-on: [push]
+on: [ push ]
 
 jobs:
   ci-phpunit:
@@ -19,7 +19,7 @@ jobs:
         with:
           bootstrap: vendor/autoload.php
           configuration: tests/phpunit.xml
-#          php_extensions: curl zlib intl ctype phar pcov xdebug pcntl libxml xml soap posix mbstring dom tokenizer xmlwriter json zip
+          #          php_extensions: curl zlib intl ctype phar pcov xdebug pcntl libxml xml soap posix mbstring dom tokenizer xmlwriter json zip
           args: --testdox
           env:
-            - XDEBUG_MODE=coverage
+            -XDEBUG_MODE=coverage
