@@ -10,6 +10,7 @@ use PisteGouvFr\Api\ChorusPro\WsRetour\ReferentielDesOrganisations\Structure;
 use PisteGouvFr\Api\ChorusPro\WsRetour\ReferentielDesOrganisations\WsRetourListerPiecesJointesStructure;
 use PisteGouvFr\Api\ChorusPro\WsRetour\ReferentielDesOrganisations\WsRetourRechercherServicesStructure;
 use PisteGouvFr\Api\ChorusPro\WsRetour\ReferentielDesOrganisations\WsRetourRechercherStructures;
+use PisteGouvFr\PisteException;
 
 /**
  * Class d'execution capable d'effectuer les appels à l'Api Chorus-Pro Référentiel des Organisations
@@ -145,7 +146,8 @@ class ReferentielDesOrganisations extends ChorusProApi {
     }
 
     public function creerService() {
-        // TODO : implementer creerService
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
     }
 
     /**
