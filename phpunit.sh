@@ -1,5 +1,5 @@
 #!/bin/bash
-./vendor/bin/phpunit \
+XDEBUG_MODE=coverage ./vendor/bin/phpunit \
 --colors \
 --testdox \
 --display-incomplete \
@@ -8,5 +8,6 @@
 --display-errors \
 --display-notices \
 --display-warnings \
-tests
+-c tests/phpunit.xml
+#tests
 
