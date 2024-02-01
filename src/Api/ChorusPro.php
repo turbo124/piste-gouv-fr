@@ -4,6 +4,7 @@ namespace PisteGouvFr\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use PisteGouvFr\Api\ChorusPro\TechnicalAccountCredential;
 use PisteGouvFr\Piste;
 use PisteGouvFr\PisteException;
 
@@ -13,14 +14,12 @@ use PisteGouvFr\PisteException;
 class ChorusPro extends Piste {
 
 
-    protected string $tech_username;
-    protected string $tech_password;
+    protected TechnicalAccountCredential $_TechnicalAccountCredential;
 
-    public function __construct(string $client_id, string $client_secret, string $tech_username, string $tech_password, bool $sandbox = true, bool $depuis_RIE = false) {
-        $this->tech_username = $tech_username;
-        $this->tech_password = $tech_password;
+    public function __construct( string $client_id, string $client_secret, TechnicalAccountCredential $TechnicalAccountCredential, bool $sandbox = true, bool $depuis_RIE = false ) {
+        $this->_TechnicalAccountCredential = $TechnicalAccountCredential;
 
-        parent::__construct($client_id, $client_secret, $sandbox, $depuis_RIE);
+        parent::__construct( $client_id, $client_secret, $sandbox, $depuis_RIE );
     }
 
 
@@ -29,11 +28,11 @@ class ChorusPro extends Piste {
 //        die();
         $this->client = new Client(
             [
-                'base_uri'        => static::getApiUrl($this->sandbox, $this->depuis_RIE),
+                'base_uri'        => static::getApiUrl( $this->sandbox, $this->depuis_RIE ),
                 'allow_redirects' => true,
                 'headers'         => [
-                    'Authorization' => 'Bearer '.$this->access_token,
-                    'cpro-account'  => base64_encode($this->tech_username.':'.$this->tech_password),
+                    'Authorization' => 'Bearer ' . $this->access_token,
+                    'cpro-account'  => (string)$this->_TechnicalAccountCredential,
                     'Content-Type'  => 'application/json;charset=utf-8',
                     'Accept'        => 'application/json;charset=utf-8',
                 ],
@@ -49,34 +48,34 @@ class ChorusPro extends Piste {
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetour|array
      * @throws \PisteGouvFr\PisteException
      */
-    public function post($uri, array $options = [], string $classe_objet_en_retour = null) {
-        if (null !== $classe_objet_en_retour && !class_exists($classe_objet_en_retour)) {
-            throw new PisteException('La classe fourni en parametre de la methode '.__FUNCTION__.' de la classe '.__CLASS__.' n\'existe pas !');
+    public function post( $uri, array $options = [], string $classe_objet_en_retour = null ) {
+        if ( null !== $classe_objet_en_retour && !class_exists( $classe_objet_en_retour ) ) {
+            throw new PisteException( 'La classe fourni en parametre de la methode ' . __FUNCTION__ . ' de la classe ' . __CLASS__ . ' n\'existe pas !' );
         }
 
         try {
             $request = $this->Client()
                             ->post( $uri, $options );
         }
-        catch (ClientException $CE) {
+        catch ( ClientException $CE ) {
             throw $CE;
 //            var_dump((string)$CE->getResponse()->getBody()->getContents());
 //            die();
         }
         $response = $request->getBody()
-            ->getContents();
-        $data     = json_decode($response, true);
+                            ->getContents();
+        $data     = json_decode( $response, true );
 
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
+        if ( null === $data ) {
+            throw new \Exception( 'json_decode exception' );
         }
-        if (array_key_exists('codeRetour',$data) && $data['codeRetour'] !== 0) {
-            throw new PisteException($data['libelle'],$data['codeRetour']);
+        if ( array_key_exists( 'codeRetour', $data ) && $data[ 'codeRetour' ] !== 0 ) {
+            throw new PisteException( $data[ 'libelle' ], $data[ 'codeRetour' ] );
         }
 
 //        var_dump($classe_objet_en_retour);
 
-        return (null !== $classe_objet_en_retour) ? new $classe_objet_en_retour($data) : $data;
+        return ( null !== $classe_objet_en_retour ) ? new $classe_objet_en_retour( $data ) : $data;
     }
 
     /**
@@ -87,37 +86,37 @@ class ChorusPro extends Piste {
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetour|array
      * @throws \PisteGouvFr\PisteException
      */
-    public function get($uri, array $options = [], string $classe_objet_en_retour = null, bool $empty_response_allowed = false) {
-        if (null !== $classe_objet_en_retour && !class_exists($classe_objet_en_retour)) {
-            throw new PisteException('La classe fourni en parametre de la methode '.__FUNCTION__.' de la classe '.__CLASS__.' n\'existe pas !');
+    public function get( $uri, array $options = [], string $classe_objet_en_retour = null, bool $empty_response_allowed = false ) {
+        if ( null !== $classe_objet_en_retour && !class_exists( $classe_objet_en_retour ) ) {
+            throw new PisteException( 'La classe fourni en parametre de la methode ' . __FUNCTION__ . ' de la classe ' . __CLASS__ . ' n\'existe pas !' );
         }
 
         try {
             $request = $this->Client()
                             ->get( $uri, $options );
         }
-        catch (ClientException $CE) {
+        catch ( ClientException $CE ) {
             throw $CE;
 //            var_dump((string)$CE->getResponse()->getBody()->getContents());
 //            die();
         }
         $response = $request->getBody()
                             ->getContents();
-        if (empty($response) && true === $empty_response_allowed) {
+        if ( empty( $response ) && true === $empty_response_allowed ) {
             return $response;
         }
-        $data     = json_decode($response, true);
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
+        $data = json_decode( $response, true );
+        if ( null === $data ) {
+            throw new \Exception( 'json_decode exception' );
         }
 
-        if ( array_key_exists('codeRetour',$data) && $data['codeRetour'] !== 0) {
-            throw new PisteException($data['libelle']);
+        if ( array_key_exists( 'codeRetour', $data ) && $data[ 'codeRetour' ] !== 0 ) {
+            throw new PisteException( $data[ 'libelle' ] );
         }
 
 //        var_dump($classe_objet_en_retour);
 
-        return (null !== $classe_objet_en_retour) ? new $classe_objet_en_retour($data) : $data;
+        return ( null !== $classe_objet_en_retour ) ? new $classe_objet_en_retour( $data ) : $data;
     }
 
     /**
@@ -128,19 +127,19 @@ class ChorusPro extends Piste {
      * @return bool|array
      * @throws \Exception
      */
-    public function patch($uri, array $options = [], int $status_code_ok = 204): bool|array {
+    public function patch( $uri, array $options = [], int $status_code_ok = 204 ): bool|array {
         $request = $this->Client()
                         ->patch( $uri, $options );
 
-        if ($status_code_ok === $request->getStatusCode()) {
+        if ( $status_code_ok === $request->getStatusCode() ) {
             return true;
         }
 
         $response = $request->getBody()->getContents();
-        $data     = json_decode($response, true);
+        $data     = json_decode( $response, true );
 
-        if (null === $data) {
-            throw new \Exception('json_decode exception');
+        if ( null === $data ) {
+            throw new \Exception( 'json_decode exception' );
         }
 
 

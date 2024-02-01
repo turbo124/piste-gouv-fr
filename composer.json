@@ -1,6 +1,6 @@
 {
   "name": "zmog/piste-gouv-fr",
-  "description": "Package PHP gerer les appels aux API REST accessible via le site piste.gouv.fr",
+  "description": "Package PHP pour gerer les appels aux API REST accessibles via le site piste.gouv.fr",
   "type": "library",
   "authors": [
     {

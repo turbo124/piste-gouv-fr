@@ -1,6 +1,10 @@
 <?php declare( strict_types=1 );
 
+use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
+use PisteGouvFr\Api\ChorusPro;
+use PisteGouvFr\Api\ChorusPro\TechnicalAccountCredentialUserPassword;
+use PisteGouvFr\Api\ChorusPro\Transverses;
 
 include_once( __DIR__ . '/const.php' );
 
@@ -12,7 +16,7 @@ final class TransversesTest extends TestCase {
      * @return void
      */
     public function testBasePath(): void {
-        $this->assertEquals( '/cpro/transverses', \PisteGouvFr\Api\ChorusPro\Transverses::getBasePath(), 'Le base path de la classe Transverse n\'est pas correct' );
+        $this->assertEquals( '/cpro/transverses', Transverses::getBasePath(), 'Le base path de la classe Transverse n\'est pas correct' );
     }
 
     /**
@@ -23,15 +27,15 @@ final class TransversesTest extends TestCase {
      */
     public function testBadTechAccountLogin(): void {
 
-        $ChorusProApi = new \PisteGouvFr\Api\ChorusPro( CLIENT_ID, CLIENT_SECRET, TECH_ACCOUNT_LOGIN.'error', TECH_ACCOUNT_PASSWORD, true, false );
+        $ChorusProApi = new ChorusPro( CLIENT_ID, CLIENT_SECRET, new TechnicalAccountCredentialUserPassword( 'bad_login', TECH_ACCOUNT_PASSWORD ), true, false );
 
-        $Transverses = new \PisteGouvFr\Api\ChorusPro\Transverses( $ChorusProApi );
+        $Transverses = new Transverses( $ChorusProApi );
 
         try {
             $res = $Transverses->healthCheck();
         }
-        catch(\GuzzleHttp\Exception\ClientException $e) {
-            $this->assertEquals( 401, $e->getCode(), 'Le status code de la requete doit être 401 en cas de mauvais credential ( tech account login ) ');
+        catch ( ClientException $e ) {
+            $this->assertEquals( 401, $e->getCode(), 'Le status code de la requete doit être 401 en cas de mauvais credential ( tech account login ) ' );
         }
     }
 
@@ -42,15 +46,15 @@ final class TransversesTest extends TestCase {
      * @throws \PisteGouvFr\PisteException
      */
     public function testBadTechAccountPassword(): void {
-        $ChorusProApi = new \PisteGouvFr\Api\ChorusPro( CLIENT_ID, CLIENT_SECRET, TECH_ACCOUNT_LOGIN, TECH_ACCOUNT_PASSWORD.'error', true, false );
+        $ChorusProApi = new ChorusPro( CLIENT_ID, CLIENT_SECRET, new TechnicalAccountCredentialUserPassword( TECH_ACCOUNT_LOGIN, 'bad_password' ), true, false );
 
-        $Transverses = new \PisteGouvFr\Api\ChorusPro\Transverses( $ChorusProApi );
+        $Transverses = new Transverses( $ChorusProApi );
 
         try {
-            $res = $Transverses->healthCheck();
+            $Transverses->healthCheck();
         }
-        catch(\GuzzleHttp\Exception\ClientException $e) {
-            $this->assertEquals( 401, $e->getCode(), 'Le status code de la requete doit être 401 en cas de mauvais credential ( tech account password ) ');
+        catch ( ClientException $e ) {
+            $this->assertEquals( 401, $e->getCode(), 'Le status code de la requete doit être 401 en cas de mauvais credential ( tech account password ) ' );
         }
 
     }
@@ -63,9 +67,9 @@ final class TransversesTest extends TestCase {
      * @throws \PisteGouvFr\PisteException
      */
     public function testHealthCheckSuccessReturn(): void {
-        $ChorusProApi = new \PisteGouvFr\Api\ChorusPro( CLIENT_ID, CLIENT_SECRET, TECH_ACCOUNT_LOGIN, TECH_ACCOUNT_PASSWORD, true, false );
+        $ChorusProApi = new ChorusPro( CLIENT_ID, CLIENT_SECRET, new TechnicalAccountCredentialUserPassword( TECH_ACCOUNT_LOGIN, TECH_ACCOUNT_PASSWORD ), true, false );
 
-        $Transverses = new \PisteGouvFr\Api\ChorusPro\Transverses( $ChorusProApi );
+        $Transverses = new Transverses( $ChorusProApi );
 
         $res = $Transverses->healthCheck();
         $this->assertEquals( 200, $res[ 'statusCodeValue' ] );
