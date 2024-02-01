@@ -7,14 +7,25 @@
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Gizmo091/piste-gouv-fr/issues)
 
-
 [![GitHub latest commit](https://badgen.net/github/last-commit/Gizmo091/piste-gouv-fr)](https://github.com/Gizmo091/piste-gouv-fr/commit/)
 
+Package afin d'effectuer des appels aux API REST de la platforme piste.gouv.fr
 
-Package afin d'effectuer des appels aux API REST de Chorus Pro via Piste. 
-
-Merci à [SBordier44 (Sylvain Bordier)](https://github.com/SBordier44) d'avoir initié le travail. 
-
-Ce package est en cours de développement.
+# Implémentations :
 
 Seules les méthodes dont j'avais besoin ont été implémentées.
+Au début je n'ai implémenté que les methodes dont j'avais besoin, puis je commencer à étoffer les méthodes. Les
+contributions sont les bienvenues pour quiconque souhaiterait ajouter des méthodes.
+
+| API Couvertes                            | MethodeCouverte / MethodesTotales |
+|------------------------------------------|----------------------------------:|
+| Chorus Pro : Factures                    |                      4 / 22 (18%) |
+| Chorus Pro : ReferentielDesOrganisations |                        X / Y (Z%) |
+| Chorus Pro : Structures                  |                       2 / 6 (33%) |
+| Chorus Pro : Transverses                 |                        X / Y (Z%) |
+
+#        
+
+Merci à [SBordier44 (Sylvain Bordier)](https://github.com/SBordier44) d'avoir initié le travail.
+
+Ce package est en cours de développement.

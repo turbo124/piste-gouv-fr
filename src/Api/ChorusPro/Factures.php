@@ -19,6 +19,7 @@ use PisteGouvFr\Api\ChorusPro\WsRetour\WsRetourSoumettreFacture;
 use PisteGouvFr\Api\ChorusPro\Type\IFormatDepot;
 use PisteGouvFr\Api\ChorusPro\Type\IModeDepot;
 use PisteGouvFr\Api\ChorusPro\Type\ISyntaxeFlux;
+use PisteGouvFr\PisteException;
 
 /**
  * Class d'execution des appels des api de piste depuis le reseau internet
@@ -29,39 +30,21 @@ class Factures extends ChorusProApi {
         return '/cpro/factures';
     }
 
-    /**
-     * @param string      $fichierFlux_path
-     * @param string      $syntaxeFlux
-     * @param string|null $nomFichier (Si null, sera remplacer par le nom du fichier correspondant au $fichierFlux_path)
-     * @param bool        $avecSignature
-     * @param int         $idUtilisateurCourant
-     *
-     * @return WsRetourDeposerFluxFacture
-     * @throws \Exception
-     */
-    public function deposerFlux(
-        string $fichierFlux_path,
-        string $syntaxeFlux = ISyntaxeFlux::IN_DP_E2_CII_FACTURX,
-        string $nomFichier = null,
-        bool   $avecSignature = false,
-        int    $idUtilisateurCourant = 0
-    ): WsRetour {
-        $nomFichier = $nomFichier ?? basename( $fichierFlux_path );
-
-        return $this->ChorusPro->post(
-            static::getBasePath() . '/v1/deposer/flux',
-            [
-                'json' => [
-                    'idUtilisateurCourant' => $idUtilisateurCourant,
-                    'fichierFlux'          => base64_encode( file_get_contents( $fichierFlux_path ) ),
-                    'nomFichier'           => $nomFichier,
-                    'syntaxeFlux'          => $syntaxeFlux,
-                    'avecSignature'        => $avecSignature,
-                ],
-            ],
-            WsRetourDeposerFluxFacture::class
-        );
+    public function rechercherFactureATraiterParValideur() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
     }
+
+    public function traiterFactureAValider() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function telechargerGroupeFacture() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
 
     /**
      * @param string      $fichierFacture_path
@@ -93,6 +76,58 @@ class Factures extends ChorusProApi {
             ],
             WsRetourDeposerPdfFacture::class
         );
+    }
+
+
+    public function rechercherDemandePaiement() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function rechercherFactureParRecipiendaire() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function completerFacture() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function consulterFactureParRecipiendaire() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function rechercherFactureParValideur() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function traiterFactureRecue() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function consulterFactureParValideur() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+
+    public function consulterFactureParFournisseur() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function rechercherFactureParFournisseur() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+    public function recyclerFacture() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
     }
 
 
@@ -159,6 +194,31 @@ class Factures extends ChorusProApi {
     }
 
     /**
+     * @return mixed
+     * @throws \PisteGouvFr\PisteException
+     * @deprecated A été déprécié avant l'implémentation.
+     */
+    public function rechercherFactureATraiterParRecipiendaire() {
+        throw new PisteException( __FUNCTION__ . ' est dépréciée.' );
+    }
+
+    /**
+     * @return mixed
+     * @throws \PisteGouvFr\PisteException
+     * @deprecated A été déprécié avant l'implémentation.
+     */
+    public function rechercherFactureATraiterParFournisseur() {
+        throw new PisteException( __FUNCTION__ . ' est dépréciée.' );
+    }
+
+
+    public function traiterRejet() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+
+    /**
      * @param int $idUtilisateurCourant
      * @param int $idFacture
      * @param int $idEspace
@@ -185,6 +245,74 @@ class Factures extends ChorusProApi {
             ],
             WsRetourConsulterHistoriqueFacture::class
         );
+    }
+
+
+    public function corrigerValideurFacture() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
+    }
+
+
+    /**
+     * @param string      $fichierFlux_path
+     * @param string      $syntaxeFlux
+     * @param string|null $nomFichier (Si null, sera remplacer par le nom du fichier correspondant au $fichierFlux_path)
+     * @param bool        $avecSignature
+     * @param int         $idUtilisateurCourant
+     *
+     * @return WsRetourDeposerFluxFacture
+     * @throws \Exception
+     */
+    public function deposerFluxFacture(
+        string $fichierFlux_path,
+        string $syntaxeFlux = ISyntaxeFlux::IN_DP_E2_CII_FACTURX,
+        string $nomFichier = null,
+        bool   $avecSignature = false,
+        int    $idUtilisateurCourant = 0
+    ): WsRetour {
+        $nomFichier = $nomFichier ?? basename( $fichierFlux_path );
+
+        return $this->ChorusPro->post(
+            static::getBasePath() . '/v1/deposer/flux',
+            [
+                'json' => [
+                    'idUtilisateurCourant' => $idUtilisateurCourant,
+                    'fichierFlux'          => base64_encode( file_get_contents( $fichierFlux_path ) ),
+                    'nomFichier'           => $nomFichier,
+                    'syntaxeFlux'          => $syntaxeFlux,
+                    'avecSignature'        => $avecSignature,
+                ],
+            ],
+            WsRetourDeposerFluxFacture::class
+        );
+    }
+
+    /**
+     * @param string      $fichierFlux_path
+     * @param string      $syntaxeFlux
+     * @param string|null $nomFichier
+     * @param bool        $avecSignature
+     * @param int         $idUtilisateurCourant
+     *
+     * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetour
+     * @throws \Exception
+     * @deprecated Nouvelle methode : deposerFluxFacture
+     */
+    public function deposerFlux(
+        string $fichierFlux_path,
+        string $syntaxeFlux = ISyntaxeFlux::IN_DP_E2_CII_FACTURX,
+        string $nomFichier = null,
+        bool   $avecSignature = false,
+        int    $idUtilisateurCourant = 0
+    ): WsRetour {
+        return $this->deposerFluxFacture( $fichierFlux_path, $syntaxeFlux, $nomFichier, $avecSignature, $idUtilisateurCourant );
+    }
+
+
+    public function recupererStatutsFactureVisiblesParValideur() {
+        // TODO : Implementer cette methode
+        throw new PisteException( __FUNCTION__ . ' pas encore implémentée.' );
     }
 
 }
