@@ -23,11 +23,11 @@ class ReferentielDesOrganisations extends ChorusProApi {
     }
 
     /**
-     * @return array
+     * @return bool
      * @throws \PisteGouvFr\PisteException
      */
-    public function healthCheck(): array {
-        return $this->ChorusPro->get( static::getBasePath() . '/healthcheck' );
+    public function healthCheck(): bool {
+        return '' == $this->ChorusPro->get( static::getBasePath() . '/healthcheck', [], null, true );
     }
 
     /**
@@ -123,7 +123,8 @@ class ReferentielDesOrganisations extends ChorusProApi {
             static::getBasePath() . '/structures/recherche',
             [
                 'json' => $structureRecherche
-            ]
+            ],
+            WsRetourRechercherStructures::class
         );
         return $retour;
     }

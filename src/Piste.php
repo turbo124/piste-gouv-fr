@@ -113,7 +113,7 @@ abstract class Piste {
                 ],
             ]
         );
-//        die();
+
         $response = json_decode( $auth->getBody()
                                       ->getContents(),
                                  true );

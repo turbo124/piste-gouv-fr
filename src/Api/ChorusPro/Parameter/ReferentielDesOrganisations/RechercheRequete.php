@@ -28,7 +28,7 @@ abstract class RechercheRequete implements \JsonSerializable {
         return static::rechercheFieldsDefinition()->fields();
     }
 
-    public function __call( string $name, array $arguments ) {
+    public function __call( string $name, array $arguments ): static {
         if ( str_starts_with( $name, 'filtrerPar' ) ) {
             $field = lcfirst( substr( $name, strlen( 'filtrerPar' ) ) );
             $class = static::rechercheFieldsDefinition()->classOf( $field );
@@ -36,7 +36,7 @@ abstract class RechercheRequete implements \JsonSerializable {
                 throw new \Exception( 'Mauvaise classe pour le filtre ' . $name . '(Classe attendue : ' . $class . ') (Classe passé : ' . get_class( $arguments[ 0 ] ) );
             }
             $this->addFilter( $field, $arguments[ 0 ] );
-            return;
+            return $this;
         }
         throw new \Exception( 'Methode inconnu !' );
     }
