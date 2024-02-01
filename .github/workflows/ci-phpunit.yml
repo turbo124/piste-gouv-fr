@@ -12,8 +12,8 @@ jobs:
         with:
           php-version: "8.1.2"
           extensions: curl , zlib , intl , ctype , phar , pcov , xdebug , pcntl , libxml , xml , soap , posix , mbstring , dom , tokenizer , xmlwriter , json , zip
-          coverage: "pcov"
-      - uses: php-actions/composer@v6
+      - name: "Install dependencies with Composer"
+        uses: "ramsey/composer-install@v2"
       - name: PHPUnit Tests
         uses: php-actions/phpunit@master
         with:
