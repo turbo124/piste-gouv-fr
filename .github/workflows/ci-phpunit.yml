@@ -3,7 +3,7 @@ name: CI PHPUnit
 on: [push]
 
 jobs:
-  build-test:
+  ci-phpunit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
