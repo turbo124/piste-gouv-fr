@@ -8,6 +8,6 @@ XDEBUG_MODE=coverage ./vendor/bin/phpunit \
 --display-errors \
 --display-notices \
 --display-warnings \
--c tests/phpunit.xml
+-c tests/phpunit.xml $1
 #tests
 

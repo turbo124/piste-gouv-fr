@@ -4,6 +4,7 @@ namespace PisteGouvFr\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use PisteGouvFr\Api\ChorusPro\HttpResponseError;
 use PisteGouvFr\Api\ChorusPro\TechnicalAccountCredential;
 use PisteGouvFr\Piste;
 use PisteGouvFr\PisteException;
@@ -85,6 +86,7 @@ class ChorusPro extends Piste {
      *
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\WsRetour|array
      * @throws \PisteGouvFr\PisteException
+     * @throws \PisteGouvFr\Api\ChorusPro\HttpResponseError
      */
     public function get( $uri, array $options = [], string $classe_objet_en_retour = null, bool $empty_response_allowed = false ) {
         if ( null !== $classe_objet_en_retour && !class_exists( $classe_objet_en_retour ) ) {
@@ -96,7 +98,7 @@ class ChorusPro extends Piste {
                             ->get( $uri, $options );
         }
         catch ( ClientException $CE ) {
-            throw $CE;
+            throw new HttpResponseError( '', $CE->getResponse()->getStatusCode(), $CE, $CE->getResponse()->getBody()->getContents() );
 //            var_dump((string)$CE->getResponse()->getBody()->getContents());
 //            die();
         }
@@ -125,15 +127,22 @@ class ChorusPro extends Piste {
      * @param int         $status_code_ok
      *
      * @return bool|array
-     * @throws \Exception
+     * @throws \PisteGouvFr\Api\ChorusPro\HttpResponseError
      */
     public function patch( $uri, array $options = [], int $status_code_ok = 204 ): bool|array {
-        $request = $this->Client()
-                        ->patch( $uri, $options );
+        try {
+            $request = $this->Client()
+                            ->patch( $uri, $options );
+        }
+        catch ( ClientException $CE ) {
+            throw new HttpResponseError( '', $CE->getResponse()->getStatusCode(), $CE, $CE->getResponse()->getBody()->getContents() );
+        }
+
 
         if ( $status_code_ok === $request->getStatusCode() ) {
             return true;
         }
+
 
         $response = $request->getBody()->getContents();
         $data     = json_decode( $response, true );

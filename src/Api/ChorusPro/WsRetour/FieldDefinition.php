@@ -91,6 +91,10 @@ class FieldDefinition {
                 $value = (bool)$value;
                 break;
             case static::TYPE_STRING_DATETIME:
+                if (empty($value)) {
+                    $value = null;
+                    break;
+                }
                 foreach ( [
                               'Y-m-d\TH:i:s.vp',
                               'X-m-d\TH:i:sP',

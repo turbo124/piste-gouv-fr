@@ -26,6 +26,7 @@ class ReferentielDesOrganisations extends ChorusProApi {
     /**
      * @return bool
      * @throws \PisteGouvFr\PisteException
+     * @throws \PisteGouvFr\Api\ChorusPro\HttpResponseError
      */
     public function healthCheck(): bool {
         return '' == $this->ChorusPro->get( static::getBasePath() . '/healthcheck', [], null, true );
@@ -51,7 +52,7 @@ class ReferentielDesOrganisations extends ChorusProApi {
      * @param string $uuidStructure
      *
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\ReferentielDesOrganisations\WsRetourRechercherServicesStructure
-     * @throws \PisteGouvFr\PisteException
+     * @throws \PisteGouvFr\PisteException|\PisteGouvFr\Api\ChorusPro\HttpResponseError
      */
     public function rechercherServicesStructure( string $uuidStructure ): WsRetourRechercherServicesStructure {
         /** @var WsRetourRechercherServicesStructure $retour */
@@ -81,18 +82,39 @@ class ReferentielDesOrganisations extends ChorusProApi {
      * @param string $uuidStructure
      *
      * @return \PisteGouvFr\Api\ChorusPro\WsRetour\ReferentielDesOrganisations\WsRetourListerPiecesJointesStructure
-     * @throws \PisteGouvFr\PisteException
+     * @throws \PisteGouvFr\PisteException|\PisteGouvFr\Api\ChorusPro\HttpResponseError HttpResponseError(400) si non
+     *                                                                                  trouvé
      */
     public function listerPiecesJointesStructure( string $uuidStructure ): WsRetourListerPiecesJointesStructure {
         /** @var WsRetourListerPiecesJointesStructure $retour */
-        $retour = $this->ChorusPro->get(
-            static::getBasePath() . '/structures/' . $uuidStructure . '/pieces_jointes', [],
-            WsRetourListerPiecesJointesStructure::class
-        );
+        try {
+            $retour = $this->ChorusPro->get(
+                static::getBasePath() . '/structures/' . $uuidStructure . '/pieces_jointes', [],
+                WsRetourListerPiecesJointesStructure::class
+            );
+        }
+        catch ( HttpResponseError $e ) {
+            /** @noinspection PhpLoopNeverIteratesInspection */
+            do {
+                if ( $e->getCode() === 400 && $e->body()[ 0 ]?->error === 'NotFoundReference' ) {
+                    $retour = new WsRetourListerPiecesJointesStructure( [] );
+                    break;
+                }
+                throw $e;
+            } while ( false );
+        }
         return $retour;
     }
 
-    public function modifierStructure( string $uuidStructure, ?bool $reception_edi, ?bool $connexion_edi ) {
+    /**
+     * @param string    $uuidStructure
+     * @param bool|null $reception_edi
+     * @param bool|null $connexion_edi
+     *
+     * @return bool|array
+     * @throws \PisteGouvFr\Api\ChorusPro\HttpResponseError
+     */
+    public function modifierStructure( string $uuidStructure, ?bool $reception_edi, ?bool $connexion_edi ): bool|array {
 
         $values = [];
         if ( null !== $reception_edi ) {
@@ -102,7 +124,6 @@ class ReferentielDesOrganisations extends ChorusProApi {
             $values[ 'connexion_edi' ] = $connexion_edi;
         }
 
-        /** @var WsRetourListerPiecesJointesStructure $retour */
         $retour = $this->ChorusPro->patch(
             static::getBasePath() . '/structures/' . $uuidStructure . '/parametres-edi',
             [
@@ -162,7 +183,8 @@ class ReferentielDesOrganisations extends ChorusProApi {
             static::getBasePath() . '/services/recherche',
             [
                 'json' => $serviceRecherche
-            ]
+            ],
+            WsRetourRechercherStructures::class
         );
         return $retour;
     }

@@ -33,7 +33,7 @@ class Transverses extends ChorusProApi {
 
     /**
      * @return array
-     * @throws \PisteGouvFr\PisteException
+     * @throws \PisteGouvFr\PisteException|\PisteGouvFr\Api\ChorusPro\HttpResponseError
      */
     public function healthCheck() {
         return $this->ChorusPro->get(

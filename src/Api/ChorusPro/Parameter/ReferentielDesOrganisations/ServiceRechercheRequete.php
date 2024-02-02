@@ -3,7 +3,7 @@
 namespace PisteGouvFr\Api\ChorusPro\Parameter\ReferentielDesOrganisations;
 
 /**
- * @method filterParRattachementOrganisation( RechercheFieldString $fieldRule )
+ * @method ServiceRechercheRequete filtrerParRattachementOrganisation( RechercheFieldString $fieldRule )
  */
 class ServiceRechercheRequete extends RechercheRequete {
 

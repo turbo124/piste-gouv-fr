@@ -34,7 +34,7 @@ final class TransversesTest extends TestCase {
         try {
             $res = $Transverses->healthCheck();
         }
-        catch ( ClientException $e ) {
+        catch ( ChorusPro\HttpResponseError $e ) {
             $this->assertEquals( 401, $e->getCode(), 'Le status code de la requete doit être 401 en cas de mauvais credential ( tech account login ) ' );
         }
     }
@@ -53,7 +53,7 @@ final class TransversesTest extends TestCase {
         try {
             $Transverses->healthCheck();
         }
-        catch ( ClientException $e ) {
+        catch ( ChorusPro\HttpResponseError $e ) {
             $this->assertEquals( 401, $e->getCode(), 'Le status code de la requete doit être 401 en cas de mauvais credential ( tech account password ) ' );
         }
 
@@ -64,7 +64,7 @@ final class TransversesTest extends TestCase {
      * Test du constructeur avec obtention du token
      *
      * @return void
-     * @throws \PisteGouvFr\PisteException
+     * @throws \PisteGouvFr\PisteException|\PisteGouvFr\Api\ChorusPro\HttpResponseError
      */
     public function testHealthCheckSuccessReturn(): void {
         $ChorusProApi = new ChorusPro( CLIENT_ID, CLIENT_SECRET, new TechnicalAccountCredentialUserPassword( TECH_ACCOUNT_LOGIN, TECH_ACCOUNT_PASSWORD ), true, false );

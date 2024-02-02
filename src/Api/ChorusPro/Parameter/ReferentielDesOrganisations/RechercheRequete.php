@@ -28,6 +28,9 @@ abstract class RechercheRequete implements \JsonSerializable {
         return static::rechercheFieldsDefinition()->fields();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function __call( string $name, array $arguments ): static {
         if ( str_starts_with( $name, 'filtrerPar' ) ) {
             $field = lcfirst( substr( $name, strlen( 'filtrerPar' ) ) );
