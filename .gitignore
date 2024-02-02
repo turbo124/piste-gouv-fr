@@ -242,3 +242,7 @@ typings/
 
 ## DynamoDB Local files
 .dynamodb/
+
+# PHPUnit
+/.phpunit.cache
+.phpunit.result.cache
