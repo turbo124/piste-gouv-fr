@@ -9,6 +9,8 @@
 
 [![GitHub latest commit](https://badgen.net/github/last-commit/Gizmo091/piste-gouv-fr)](https://github.com/Gizmo091/piste-gouv-fr/commit/)
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/mathieuvedie)
+
 # Informations
 
 Package afin d'effectuer des appels aux API REST de la platforme piste.gouv.fr
